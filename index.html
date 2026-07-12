@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>קורפו במשפחה · 27–31 ביולי 2026</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E⛵%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@700;900&family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --ink:#0B2E4F; --ink2:#0F3A63; --sea:#1266B0; --gold:#F4B942;
+  --wash:#EEF4F6; --card:#FFFFFF; --line:#D8E4EA; --txt:#12293D; --mut:#5A7186;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{
+  display:flex;flex-direction:column;height:100dvh;overflow:hidden;
+  font-family:'Heebo',system-ui,sans-serif;color:var(--txt);background:var(--wash);
+}
+/* ===== כותרת ===== */
+header{background:linear-gradient(180deg,var(--ink) 0%,var(--ink2) 100%);color:#fff;flex:none}
+.hgrid{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:14px 18px 8px}
+.title{font-family:'Frank Ruhl Libre',serif;font-weight:900;font-size:clamp(24px,3.4vw,38px);line-height:1;margin:0}
+.sub{color:#BBD3E8;font-size:12.5px;margin-top:5px;font-weight:500}
+.hbtns{display:flex;gap:8px}
+.hbtn{border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#fff;
+  border-radius:999px;padding:8px 16px;font:600 13.5px 'Heebo',sans-serif;cursor:pointer;transition:.15s}
+.hbtn:hover{background:rgba(255,255,255,.18)}
+.hbtn-gold{background:var(--gold);border-color:var(--gold);color:var(--ink);font-weight:800}
+.hbtn-gold:hover{background:#FFCB58}
+.hbtn.hide{display:none}
+.tabs{display:flex;gap:7px;padding:6px 18px 12px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.07);color:#D7E7F4;
+  border-radius:999px;padding:6px 14px;font:600 13px 'Heebo',sans-serif;cursor:pointer;transition:.15s}
+.chip:hover{background:rgba(255,255,255,.16)}
+.chip.on{background:var(--c,#fff);border-color:transparent;color:#fff;font-weight:800;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.chip-all.on{background:#fff;color:var(--ink)}
+.meander{height:12px;background:var(--ink2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='12' viewBox='0 0 18 12'%3E%3Cpath d='M1 11 V2 H15 V8 H8 V5 H12' fill='none' stroke='%23F4E7C6' stroke-width='1.6' opacity='.85'/%3E%3C/svg%3E") repeat-x center/auto 12px;border-top:1px solid rgba(255,255,255,.12)}
+/* ===== גוף ===== */
+.main{flex:1;display:flex;min-height:0}
+.panel{width:392px;flex:none;background:var(--card);border-inline-end:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
+.panelhead{padding:12px 16px;border-bottom:1px solid var(--line);font-weight:800;color:var(--ink);font-size:14px}
+.list{flex:1;overflow-y:auto;padding:8px 12px 30px}
+.dayhead{display:flex;flex-direction:column;gap:1px;margin:16px 2px 8px;padding-inline-start:10px;border-inline-start:4px solid var(--c)}
+.dayhead span{font-weight:800;color:var(--ink);font-size:14px}
+.dayhead em{font-style:normal;color:var(--mut);font-size:12.5px}
+.leg{color:var(--mut);font-size:12.5px;margin:8px 12px 3px;padding-inline-start:20px;position:relative}
+.leg::before{content:"";position:absolute;inset-inline-start:9px;top:-8px;bottom:-4px;border-inline-start:2px dotted #BFD2DD}
+.stop{display:flex;align-items:center;gap:10px;width:100%;text-align:start;background:#fff;border:1px solid var(--line);
+  border-radius:12px;padding:9px 11px;margin:4px 0;cursor:pointer;font-family:inherit;transition:border-color .15s,box-shadow .15s}
+.stop:hover{border-color:var(--c);box-shadow:0 2px 10px rgba(11,46,79,.08)}
+.stop.sel{border-color:var(--c);box-shadow:0 0 0 2px var(--c) inset,0 3px 12px rgba(11,46,79,.12)}
+.badge{flex:none;min-width:26px;height:26px;border-radius:50%;background:var(--c);color:#fff;font-weight:800;font-size:13px;display:grid;place-items:center}
+.stoptxt{display:flex;flex-direction:column;gap:1px;min-width:0}
+.stoptime{color:var(--mut);font-size:11.5px;font-weight:500}
+.stopname{font-weight:700;color:var(--txt);font-size:14px}
+.chev{margin-inline-start:auto;color:#A9BCC9;font-size:18px}
+.dayhead i{font-style:normal;align-self:flex-start;color:#33536E;font-size:11.5px;font-weight:700;background:var(--wash);border:1px solid var(--line);border-radius:6px;padding:2px 8px;margin-top:4px}
+.panelhead .ph2{display:block;font-weight:600;color:var(--mut);font-size:12px;margin-top:3px}
+/* ===== מפה ===== */
+.mapwrap{flex:1;position:relative;min-width:0}
+#map{position:absolute;inset:0;direction:ltr;background:#CFE3EC}
+.pinwrap{background:none;border:none}
+.pin{width:30px;height:30px;margin:2px;border-radius:50%;background:var(--c);color:#fff;font-weight:800;font-size:13px;
+  display:grid;place-items:center;border:3px solid #fff;box-shadow:0 2px 6px rgba(11,46,79,.4);transition:transform .15s;font-family:'Heebo',sans-serif}
+.pin-on{transform:scale(1.3);animation:pulse 1.5s ease-out infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(244,185,66,.55)}100%{box-shadow:0 0 0 16px rgba(244,185,66,0)}}
+.tip{direction:rtl;font-family:'Heebo',sans-serif;font-weight:600}
+.pinbed{width:28px;height:28px;margin:1px;border-radius:50%;background:#fff;border:3px solid #D6336C;display:grid;place-items:center;font-size:13px;box-shadow:0 2px 6px rgba(11,46,79,.35);transition:transform .15s}
+.pinbed-on{transform:scale(1.3);animation:pulse 1.5s ease-out infinite}
+.chip-bed.on{background:#D6336C;color:#fff;font-weight:800;border-color:transparent}
+.scorerow{display:flex;align-items:center;gap:8px;margin:4px 0 2px}
+.scorebadge{background:#D6336C;color:#fff;font-weight:800;font-size:13px;border-radius:8px;padding:3px 9px}
+.bedsrc{color:#C77D0A;font-weight:700;font-size:12.5px}
+.dapprox{color:var(--mut);font-size:12px}
+/* ===== כרטיס פרטים ===== */
+#detail{position:absolute;inset-inline-start:14px;bottom:14px;width:min(380px,calc(100% - 28px));max-height:calc(100% - 28px);
+  background:#fff;border-radius:16px;box-shadow:0 14px 44px rgba(11,46,79,.3);overflow:hidden;display:flex;flex-direction:column;
+  transform:translateY(18px);opacity:0;pointer-events:none;transition:transform .25s,opacity .25s;z-index:900;direction:rtl}
+#detail.open{transform:none;opacity:1;pointer-events:auto}
+.cardkey{flex:none;height:9px;background:var(--ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 8 V1.5 H12 V5.5 H6.5 V3.5 H9.5' fill='none' stroke='%23FFFFFF' stroke-width='1.3' opacity='.8'/%3E%3C/svg%3E") repeat-x center/auto 9px}
+#dClose{position:absolute;top:16px;inset-inline-end:10px;z-index:5;width:30px;height:30px;border-radius:50%;border:none;cursor:pointer;
+  background:rgba(11,46,79,.75);color:#fff;font-size:14px;line-height:1;display:grid;place-items:center}
+#dContent{overflow-y:auto}
+.dphoto img{width:100%;height:150px;object-fit:cover;display:block}
+.dbody{padding:12px 15px 15px}
+.deyebrow{font-size:12px;color:var(--mut);font-weight:600;display:flex;align-items:center;gap:6px}
+.dot{width:9px;height:9px;border-radius:50%;flex:none}
+.dname{font-family:'Frank Ruhl Libre',serif;font-weight:800;font-size:20px;color:var(--ink);margin:5px 0 3px;line-height:1.25}
+.drating{color:#C77D0A;font-weight:800;font-size:13px}
+.drating span{color:var(--mut);font-weight:500}
+.dleg{font-size:12.5px;color:var(--mut);margin-top:4px}
+.dnotes{font-size:14px;line-height:1.7;color:var(--txt);margin:9px 0 13px}
+.dbtns{display:flex;gap:8px}
+.btn{flex:1;text-align:center;padding:10px 6px;border-radius:10px;font-weight:800;font-size:13.5px;text-decoration:none;transition:.15s}
+.btn-a{background:var(--sea);color:#fff}
+.btn-a:hover{background:#0E5290}
+.btn-b{background:#EAF3FA;color:var(--sea);border:1px solid #BFD9EC}
+.btn-b:hover{background:#DDECf8}
+.tips{margin:8px 0 0;padding:0;list-style:none}
+.tips li{padding:9px 0;border-bottom:1px dashed var(--line);font-size:13.5px;line-height:1.65}
+.tips li:last-child{border-bottom:none}
+/* ===== פס סיור ===== */
+#tourbar{position:absolute;bottom:16px;left:50%;transform:translateX(-50%) translateY(70px);z-index:950;
+  display:flex;align-items:center;gap:10px;background:var(--ink);color:#fff;border-radius:999px;padding:8px 12px;
+  box-shadow:0 10px 30px rgba(11,46,79,.4);transition:transform .25s;direction:rtl}
+#tourbar.show{transform:translateX(-50%) translateY(0)}
+#tourbar button{border:none;cursor:pointer;font:700 13.5px 'Heebo',sans-serif;border-radius:999px;padding:7px 15px}
+#tPrev,#tNext{background:rgba(255,255,255,.14);color:#fff}
+#tPrev:hover,#tNext:hover{background:rgba(255,255,255,.26)}
+#tPrev:disabled,#tNext:disabled{opacity:.35;cursor:default}
+#tExit{background:transparent;color:#BBD3E8;padding:7px 6px}
+#tCount{font-weight:800;font-size:13.5px;min-width:56px;text-align:center;color:var(--gold)}
+/* ===== אין רשת ===== */
+#nonet{display:none;position:fixed;inset:0;z-index:2000;background:var(--ink);color:#fff;align-items:center;justify-content:center;text-align:center;font-size:17px;line-height:1.8;padding:24px}
+/* ===== נגישות ותנועה ===== */
+.chip:focus-visible,.stop:focus-visible,.btn:focus-visible,.hbtn:focus-visible,#tourbar button:focus-visible,#dClose:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* ===== מובייל ===== */
+@media (max-width:880px){
+  .main{flex-direction:column-reverse}
+  .mapwrap{height:46dvh;flex:none}
+  .panel{width:auto;flex:1;border-inline-end:none;border-top:1px solid var(--line)}
+  .hgrid{padding:12px 14px 6px}
+  .tabs{padding:6px 14px 10px}
+  #detail{inset-inline-start:10px;inset-inline-end:10px;width:auto;bottom:10px;max-height:calc(100% - 20px)}
+  .dphoto img{height:120px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="hgrid">
+    <div>
+      <h1 class="title">קורפו במשפחה ⛵</h1>
+      <div class="sub">27–31 ביולי 2026 · 4 לילות · 2 בסיסים · 19 עצירות · הלוך מאטרקציה לאטרקציה, חזור ישר לשדה</div>
+    </div>
+    <div class="hbtns">
+      <button id="tipsBtn" class="hbtn">💡 טיפים</button>
+      <button id="tourBtn" class="hbtn hbtn-gold">▶ סיור מודרך</button>
+    </div>
+  </div>
+  <div class="tabs" id="tabs"></div>
+  <div class="meander" aria-hidden="true"></div>
+</header>
+
+<div class="main">
+  <aside class="panel">
+    <div class="panelhead" id="dayTitle"></div>
+    <div id="list" class="list"></div>
+  </aside>
+  <div class="mapwrap">
+    <div id="map"></div>
+    <div id="detail">
+      <div class="cardkey" aria-hidden="true"></div>
+      <button id="dClose" aria-label="סגירת הכרטיס">✕</button>
+      <div id="dContent"></div>
+    </div>
+    <div id="tourbar">
+      <button id="tPrev">הקודם</button>
+      <span id="tCount"></span>
+      <button id="tNext">הבא</button>
+      <button id="tExit" aria-label="יציאה מהסיור">✕</button>
+    </div>
+  </div>
+</div>
+
+<div id="nonet"><div>🌐 המפה זקוקה לחיבור אינטרנט.<br>פתחו את הקובץ שוב כשיש רשת — כל המסלול והפרטים ייטענו.</div></div>
+
+<script>
+/* ===== נתוני הטיול ===== */
+var DAYS = [
+  { d: 1, chip: "שני 27.7", title: "נחיתה וערב ראשון בעיר העתיקה", color: "#7A5AF8", hotel: "🛏️ לינה: Corfu Holiday Palace — קאנוני" },
+  { d: 2, chip: "שלישי 28.7", title: "קרקירה: מבצר, גנים, דאסיה וקאנוני", color: "#1E88D2", hotel: "🛏️ לינה (לילה 2): Corfu Holiday Palace — קאנוני" },
+  { d: 3, chip: "רביעי 29.7", title: "ג׳מבו, שייט פרטי ושקיעה בלאקונס", color: "#0FA3A3", hotel: "🛏️ לינה: Akrotiri Beach Resort — פלאוקסטריצה" },
+  { d: 4, chip: "חמישי 30.7", title: "פורטו טימוני, סידארי ושקיעה בלוגאס", color: "#F08C1B", hotel: "🛏️ לינה (לילה 2): Akrotiri Beach Resort — פלאוקסטריצה" },
+  { d: 5, chip: "שישי 31.7", title: "ישר לשדה — טיסה 12:45", color: "#E14D5A", hotel: "✈️ טיסה הביתה — בלי לינה" }
+];
+
+/* מוצא לנתיב הנסיעה של יום שישי (המלון בפלאוקסטריצה) */
+var ROUTE_ORIGIN = { 5: [39.6730026, 19.716527] };
+
+var STOPS = [
+  { d:1, time:"19:00", icon:"✈️", name:"שדה התעופה קורפו (CFU)", leg:null,
+    notes:"נחיתה ואיסוף הרכב השכור. כדאי להזמין מראש חברה עם עמדה בטרמינל עצמו — חוסך הסעה לעמדות החיצוניות.",
+    rating:null, lat:39.6071325, lng:19.9149916,
+    gmap:"https://maps.google.com/?cid=3707393816662574799",
+    photo:"https://lh3.googleusercontent.com/place-photos/AJRVUZPCTD03Q9VSGT9bfNUHdo_6z_-hBmyz9kmcYEKYdRXI2ZI-nT0u_TJVzYWYaoMuSChvseMk8KXwjBf6cvYkqalZM1-FDbJuakrungLeOf7bGhTFzg0gnZrOMBy9GXdbUrubiLpIFQWK2cSV-g=s4800-w800-h600" },
+  { d:1, time:"19:45", icon:"🏨", name:"מלון Corfu Holiday Palace — קאנוני", leg:"🚗 5 דק׳ מהשדה",
+    notes:"הבסיס ללילות שני–שלישי: בריכה, מעלית ישר לחוף פרטי, נוף לאי העכברים, חניה. חלופה באותו אזור: Ariti Grand.",
+    rating:4.1, lat:39.5920394, lng:19.9189168,
+    gmap:"https://maps.google.com/?cid=10398298594020330257",
+    photo:"https://lh3.googleusercontent.com/place-photos/AJRVUZPFiIWdVGFBQgo7wACXaRUZ81Jbukj0eYvcBzb7VMDSa_p4DF09VG8HCEyNAFP3BvmZY8TNM9gKCluHlY7h6bsbsZLcAvjUrr3Zze_wBZ_XRqVY0wPlBRCKfF2uvgYNYTYkkkpfN8sFWgcd=s4800-w800-h600" },
+  { d:1, time:"21:00", icon:"🌙", name:"טיול ערב — הליסטון והעיר העתיקה", leg:"🚗 10 דק׳ · חניה ליד הנמל הישן",
+    notes:"ערב ראשון רגוע: הליסטון — טיילת הקשתות המוארת בסגנון פריזאי — הספיאנדה והסמטאות הוונציאניות. ארוחת ערב עצמאית ממה שהבאתם, ומחר חוזרים לכאן לסיור מלא. בסיום — חזרה למלון Corfu Holiday Palace (10 דק׳).",
+    rating:null, lat:39.6246449, lng:19.9240325,
+    gmap:"https://www.google.com/maps/search/?api=1&query=39.6246449,19.9240325&query_place_id=ChIJIzlhF91dWxMRj2SqikBgFio",
+    photo:null },
+
+  { d:2, time:"09:30", icon:"🏰", name:"המבצר הישן (Old Fortress)", leg:"🚗 12 דק׳ מהמלון",
+    notes:"להגיע מוקדם לפני החום. עלייה לפסגה עם נוף 360° על העיר והים. כניסה ~10€, פתוח 8:00–20:00.",
+    rating:4.6, lat:39.6234796, lng:19.9274977,
+    gmap:"https://maps.google.com/?cid=3822803553805730948",
+    photo:"https://lh3.googleusercontent.com/place-photos/AJRVUZOgVnZ7DrMnS1sdznKGrsuqeZPXr21Ze2KDweXDlqcDV7FgrarGQSJx6ZInRgTIx8nI_WG2TVACnOe4Bok6UaewJmEPgAiQEFLrLZ3Ar74Bqco9p4-ZvGD64zqrbwvy96YeZjZ2COu_HtVx6yM=s4800-w800-h600" },
+  { d:2, time:"11:30", icon:"🌳", name:"Garden of the People", leg:"🚶 5 דק׳ הליכה מהמבצר",
+    notes:"הגן הירוק והשקט מהרשימה שלכם — צל, נוף לים ושלווה באמצע העיר. משם ממשיכים דרך הסמטאות אל הרובע היהודי.",
+    rating:4.8, lat:39.6255698, lng:19.9254252,
+    gmap:"https://maps.google.com/?cid=8612065011616512970",
+    photo:"https://lh3.googleusercontent.com/place-photos/AJRVUZNrd33wAyZTIlfnTyvHCJsowby3hbAx1U7Lg1hcxiDo9ahTOnieQ8LdILZXJc1_DfzBYMGRZicKrRGDzFg5McezX5iwH0IB6ONz21Nzcgw4kwuW9jFmdnCGLfvrBVaL6h1oqcJdpqt6OWOEkoAeyHZoHQ=s4800-w800-h600" },
+  { d:2, time:"12:15", icon:"🕍", name:"בית הכנסת Scuola Greca — הרובע היהודי", leg:"🚶 6 דק׳ הליכה דרך הסמטאות",
+    notes:"בית הכנסת מהמאה ה-17 — היחיד ששרד את המלחמה — פועל עד היום בלב הרובע היהודי (אווראיקי). פתוח שני–שבת 10:00–16:00, כניסה חופשית, לבוש צנוע. משם ארוחת צהריים עצמאית וחזרה לכיוון המלון.",
+    rating:4.5, lat:39.6240971, lng:19.9192482,
+    gmap:"https://www.google.com/maps/search/?api=1&query=39.6240971,19.9192482&query_place_id=ChIJv47fettdWxMRPywDP-L6brI",
+    photo:null },
+  { d:2, time:"15:00", icon:"🏖️", name:"חוף דאסיה (Dassia)", leg:"🚗 ~25 דק׳ צפונה",
+    notes:"שחיית אחר הצהריים: מים רדודים ורגועים, צל עצים על החול — מושלם עם ילדים.",
+    rating:4.0, lat:39.6815411, lng:19.8410933,
+    gmap:"https://maps.google.com/?cid=13547594308667669765",
+    photo:"https://lh3.googleusercontent.com/place-photos/AJRVUZP9wU-NWCjIFYkZQSq683i_rFtWPUK6XWX_rb65McreINofpIkexNIWy7GWJxnaVKZPeYHrs5n_WKpOiuFeaUy9qFPG5xApc8afShMbqn500SJWuLcWmjgXoqCl8U8E5eUjdB7aqJQe71hxmw=s4800-w800-h600" },
+  { d:2, time:"18:15", icon:"🛬", name:"תצפית קאנוני — מנזר ולכרנה", leg:"🚗 ~30 דק׳ חזרה דרומה",
+    notes:"המטוסים נוחתים ממש מעל הראש, והמנזר הלבן על האי הקטן הוא הגלויה של קורפו. שווה לחכות לנחיתה אחת או שתיים. ערב חופשי, ולינה שנייה ב-Corfu Holiday Palace — 3 דק׳ נסיעה מכאן.",
+    rating:4.7, lat:39.5899918, lng:19.9171444,
+    gmap:"https://maps.google.com/?cid=1059384372771907436",
+    photo:"https://lh3.googleusercontent.com/place-photos/AJRVUZM_jOpKq_zhTXCyrPMphBFSwROw8193nTH-IP5EeT6xjlFsk4S9rJMUzxfILKfGA0YHf2A_RRBW0-8fK_1sQideu0KPH0O3-ie6qkNwhfK22Fz1FtFE8xodCaTcio4XqRJcaO5CP-sbs7fs4MI=s4800-w800-h600" },
+
+  { d:3, time:"09:15", icon:"🛍️", name:"ג׳מבו (JUMBO)", leg:"🚗 10 דק׳ · אחרי צ׳ק-אאוט",
+    notes:"עצירה בדרך מערבה — פותחים ב-9:00. מתנפחים, שנורקלים, כובעים וצעצועים במחירי יוון, בדיוק לפני יום הסירה.",
+    rating:4.3, lat:39.6059915, lng:19.8934095,
+    gmap:"https://maps.google.com/?cid=15521966440271000148",
+    photo:"https://lh3.googleusercontent.com/place-photos/AG9NLjD3Ttb0Ing7kMKZbicZPfwESGzcrVWZLUbGFkew-U3Q98iVEfQ1dfoBF_DGCWo15XPXXeElMPxiyXz8s0uGQpudg8l2_bBk_kuFHy0UHASusJkfHuXzVDkzDXWUdEInDpmyBeKnCcPXmDPMNu4=s4800-w800-h600" },
+  { d:3, time:"10:30", icon:"⛵", name:"חוף אליפה — השייט הפרטי", leg:"🚗 ~35 דק׳ מערבה",
+    notes:"השכרת סירה ללא רישיון (עד 30 כ״ס): Corfu Rent a Boat‏ 4.8★ או Alipa Boats by Yiannis‏ 4.5★. לפי ביקורות ~120–170€ ל-4–6 שעות + דלק 12–20€. שטים צפונה לאורך המצוקים אל המערות הכחולות.",
+    rating:4.4, lat:39.6727976, lng:19.7069395,
+    gmap:"https://maps.google.com/?cid=10347399387626858346",
+    photo:"https://lh3.googleusercontent.com/place-photos/AJRVUZPXynpWmWVMEkbJy1SaawR_ta8A3RratiFW7mnrcbSdkebUYovkoRYBQj7vTEjfC6XkpDzEawBIqLf6wSBs9h4M2vzfbiT0jGSxis94hVJCe8syEBrImbB7oKLjKBzXpsCtP24stLuzdOQD6mA=s4800-w800-h600" },
+  { d:3, time:"12:00", icon:"🤿", name:"חוף Limni Glyko — עוגנים לשחייה", leg:"⛵ מגיעים בסירה מאליפה", boat:true,
+    notes:"ה-Limni מהרשימה שלכם: מים בצבע טורקיז בין שני סלעים, צד רדוד שמתאים לילדים, ומדי פעם עוברת סירת קיוסק עם שתייה קרה.",
+    rating:4.6, lat:39.6655277, lng:19.7238775,
+    gmap:"https://maps.google.com/?cid=5569407729180384201",
+    photo:"https://lh3.googleusercontent.com/place-photos/AJRVUZMrAw--N2OrGqWSTv5ylqV6k4igxt5iydUsTcsWETAjJdD4H34OpbsE9mFouXramjBS5IOO3xcdg6LOtN55dnrBu2J_OUFPJmHDTH2M07chI-387Da6O7nZ4FJY9uf4bXlh_Ilh_PqPMOGCOQ=s4800-w800-h600" },
+  { d:3, time:"16:30", icon:"⛪", name:"מנזר פלאוקסטריצה", leg:"🚗 5 דק׳ מאליפה (אחרי החזרת הסירה וצהריים)",
+    notes:"נפתח שוב ב-15:00 (עד 19:00). כניסה חינם, לבוש צנוע, גינות מטופחות ונוף מהצוק על המפרצים.",
+    rating:4.7, lat:39.6695032, lng:19.7015685,
+    gmap:"https://maps.google.com/?cid=1155369314823905337",
+    photo:"https://lh3.googleusercontent.com/place-photos/AJRVUZP60yuNrdx58m0IoIhiWoYz-EzRAeIEgl108riGBeBd06o-YFnopi7jRVtvVSXQ6ZqnZVk72gU8dnsmUCUPtkUj-22A0gxbLOS3vL3LTo78zWp3klQbpbx_MTksHE0tr04ZKBn37Z_0cUApaw=s4800-w800-h600" },
+  { d:3, time:"17:45", icon:"🏨", name:"מלון Akrotiri Beach Resort", leg:"🚗 5 דק׳",
+    notes:"צ׳ק-אין לבסיס של לילות רביעי–חמישי: על המים בפלאוקסטריצה, בריכה, חוף צמוד וחניה. זמן בריכה, מקלחת והתארגנות לפני השקיעה בלאקונס.",
+    rating:4.6, lat:39.6730026, lng:19.716527,
+    gmap:"https://maps.google.com/?cid=3706241053268312262",
+    photo:"https://lh3.googleusercontent.com/place-photos/AJRVUZOr1gOmSpssCkVT-2AZ3JSUozxnSIfY8HogLIA8soDc0Q5gWut0woXWLMJOSh1FrA-t5vcdjVqCZOHX7S29jXxgkJ73EbK23ycAy_cMTu09VWablaDha1xH4ilqJR9OiUHFLuj1Nve3Lfc=s4800-w800-h600" },
+  { d:3, time:"19:45", icon:"🌅", name:"תצפית Bella Vista — לאקונס", leg:"🚗 10 דק׳ במעלה ההר — כביש צר, לנסוע לאט",
+    notes:"התצפית המפורסמת של האי: כל מפרצי פלאוקסטריצה מתחתיכם. להביא ארוחת ערב קלה מהצידנית ולתפוס מקום טוב לשקיעה (~20:45). בסיום — חזרה ל-Akrotiri Beach Resort, 10 דק׳ במורד.",
+    rating:4.8, lat:39.6791634, lng:19.6992563,
+    gmap:"https://maps.google.com/?cid=7079916835954259621",
+    photo:"https://lh3.googleusercontent.com/place-photos/AJRVUZOzvAerNjcpcrEZohsjZd-FIrH6F8lWYBSADMoUGxkCNE7S5MvbMW_-zAOdbf3rscyvfy_OQbEy66mvV72_RuP9CV1PVIo_DXUw-NdyCK6HQtawRA4fLXluWsUTn902cATgQiViOhxjz5Wf=s4800-w800-h600" },
+
+
+  { d:4, time:"09:00", icon:"🥾", name:"פורטו טימוני (Porto Timoni)", leg:"🚗 30 דק׳ לאפיונאס + 🥾 ירידה 25–30 דק׳",
+    notes:"שני המפרצים התאומים — לצאת מוקדם לפני החום. חונים בכפר אפיונאס ויורדים בשביל (נעליים סגורות + מים!), או פשוט מונית-ים מחוף אגיוס גאורגיוס — ההמלצה עם ילדים.",
+    rating:4.5, lat:39.7152492, lng:19.6580634,
+    gmap:"https://maps.google.com/?cid=11855933772415448033",
+    photo:"https://lh3.googleusercontent.com/place-photos/AG9NLjDr9OMeXdBIsJFmI9wkl_U0Um_YmjTtlnLfLPVsozZiJbnCRgu-A5avPi0TYcQU1cR2wXTLegjdRz-jti5iTs2N-zZ1VOSjjcQWaSBbCWWcm7zHvhNTrtedS6j6JDeOJ_TN3IjEqfSSKVGfaQ=s4800-w800-h600" },
+  { d:4, time:"13:00", icon:"🏖️", name:"חוף אגיוס גאורגיוס פאגון", leg:"🚗 10 דק׳ (או חזרה במונית-הים)",
+    notes:"צהריים מהצידנית ומנוחה על חוף רחב ורגוע. מכאן יוצאות סירות הטקסי לפורטו טימוני אם ויתרתם על הירידה ברגל.",
+    rating:4.6, lat:39.7200594, lng:19.6748116,
+    gmap:"https://maps.google.com/?cid=2021420506091572863",
+    photo:"https://lh3.googleusercontent.com/place-photos/AG9NLjCVy7vQN3Lr7Oalfd7QmOJYkNpxU3_1E6p7ARjFTs-qxNoarY_YQQ7gxbc6Jql2_kZe84COaDBah2spW9LkDdvnou2yRljzCY45kL6fdzvoy2QWnMTVZlXLgyTbmKoltsxFQklyIHWxqnhrxA=s4800-w800-h600" },
+  { d:4, time:"17:00", icon:"📸", name:"תעלת האוהבים (Canal d’Amour) — סידארי", leg:"🚗 ~30 דק׳ צפונה",
+    notes:"מפרצוני אבן החול המפורסמים של סידארי. לפי האגדה, זוג ששוחה יחד לאורך התעלה יישאר יחד לנצח 💙 עצירה לתמונות, קפיצות וטבילה.",
+    rating:4.3, lat:39.7970523, lng:19.6980385,
+    gmap:"https://maps.google.com/?cid=14445496272545371942",
+    photo:"https://lh3.googleusercontent.com/place-photos/AJRVUZNmsOg-RbHsJ5Zg1n3y00oXiQ1ZYFpMDmGSxaKMJSD4EqVK_7lRXlxZv1UVaEAseC3JiVKw-a8YSJeGTcHjM8qVZR1mFbfVTuVBlksIM_SCwDuuTuXURF7wrtnpeP_sleZUuh6DISJ1plJlfg=s4800-w800-h600" },
+
+  { d:4, time:"19:45", icon:"🌇", name:"חוף לוגאס — השקיעה", leg:"🚗 ~12 דק׳ מסידארי · חזרה ל-Akrotiri Beach Resort ~45 דק׳",
+    notes:"השקיעה הכי מפורסמת באי, מראש מצוק לבן (~20:45). להגיע חצי שעה לפני לתפוס מקום; מרפסת התצפית עם רצפת הזכוכית (7th Heaven) צמודה.",
+    rating:4.5, lat:39.7875346, lng:19.6664415,
+    gmap:"https://maps.google.com/?cid=2906717984510712442",
+    photo:"https://lh3.googleusercontent.com/place-photos/AJRVUZMo_hWN8moSLLbkSzQpxph7FpvTOJG2IQbdOmuE7ZpVpodWaOWwmqdt2JpaCa_jmgEGwG5tRR7_ujh16XBOeAfQZujQqAtUFnzP9BgyLVVPSbsrykXqvmbEdwUmeGHs1yqJPtNOi_PgxiUrdSU=s4800-w800-h600" },
+
+  { d:5, time:"09:00", icon:"🛫", name:"שדה התעופה — החזרת הרכב", leg:"🚗 ~40 דק׳ מפלאוקסטריצה · יציאה 08:15",
+    notes:"תדלוק בתחנה שבדרך, החזרת רכב עד 09:15, ובטרמינל 09:45 — בדיוק 3 שעות לפני טיסת 12:45. נסיעה טובה הביתה! ✈️",
+    rating:null, lat:39.6071325, lng:19.9149916,
+    gmap:"https://maps.google.com/?cid=3707393816662574799",
+    photo:"https://lh3.googleusercontent.com/place-photos/AJRVUZPCTD03Q9VSGT9bfNUHdo_6z_-hBmyz9kmcYEKYdRXI2ZI-nT0u_TJVzYWYaoMuSChvseMk8KXwjBf6cvYkqalZM1-FDbJuakrungLeOf7bGhTFzg0gnZrOMBy9GXdbUrubiLpIFQWK2cSV-g=s4800-w800-h600" }
+];
+
+var TIPS = [
+  "🚗 רכב: להזמין מראש חברה עם עמדה בשדה. הכבישים בצפון־מערב צרים — לנסוע לאט, במיוחד בעלייה ללאקונס ולאפיונאס.",
+  "🕎 כשרות: אין מסעדות כשרות בקורפו, ולמיטב הבדיקה אין בית חב״ד קבוע באי — מתארגנים עצמאית. חב״ד אתונה מפעילים משלוחי אוכל כשר מוכן לאיי יוון (דרך chabad.gr) — להזמין כמה ימים מראש.",
+  "🛒 קניות: סניף גדול של AB Vassilopoulos נמצא ממש בדרך לג׳מבו (שני–שבת 8:00–21:00, ראשון 11:00–18:00) — פירות, ירקות ומצרכים לצידנית. שווה להביא מהארץ מוצרים כשרים ולבקש בשני המלונות חדר עם מקרר.",
+  "🕍 בית הכנסת וקהילת קורפו: טלפון המשרד +30-26610-47777 — אפשר לתאם ביקור מראש; בקיץ יש לעיתים מניינים.",
+  "🌅 שקיעה בסוף יולי: בערך 20:45. לנקודות שקיעה (Bella Vista, לוגאס) כדאי להגיע חצי שעה לפני.",
+  "⛵ סירה: השכרה ללא רישיון עד 30 כ״ס. לקחת כובעים, מים והרבה קרם הגנה — אין צל בסירה. את הציוד קונים בג׳מבו באותו בוקר.",
+  "🥾 פורטו טימוני: נעליים סגורות חובה. עם ילדים — מונית־ים מאגיוס גאורגיוס (בסביבות 10€ לאדם הלוך־חזור) חוסכת את הירידה.",
+  "🛍️ ג׳מבו: פתוח שני–שבת 9:00–21:00, ראשון 11:00–20:00.",
+  "✈️ יום שישי: יציאה 08:15 מהמלון, תדלוק בדרך, החזרת רכב עד 09:15, בטרמינל 09:45 לטיסת 12:45.",
+  "🏨 חלופה ללילה האחרון: Sidari Beach Hotel‏ (4.7★) אם מעדיפים לישון בצפון בחמישי — ואז ביום שישי יוצאים כבר ב־07:40 (שעה ורבע נסיעה).",
+  "🛏️ 20 חלופות לינה מסומנות במפה בסמן ורוד — לחיצה מציגה ציון, ביקורות ומחיר משוער. המחירים הם הערכות לסוף יולי; המחיר המדויק בקישור, לתאריכים שלכם."
+];
+
+/* ===== חלופות לינה (לבחירה) ===== */
+var LODGING = [
+  { area:1, score:9, src:"airbnb", rate:4.92, cnt:113, name:"Bioleta & Christos — פוטאמוס (Airbnb)",
+    price:"מחיר בקישור · ממוצע יולי ~105$ (≈400 ₪)",
+    notes:"שופצה כולה ב-2021 — מטבח, ריהוט ומיזוג חדשים; מהמדורגות באזור עם 113 ביקורות. 10 דק׳ מהעיר.",
+    lat:39.6446, lng:19.885, link:"https://www.airbnb.com/rooms/50131201?check_in=2026-07-27&check_out=2026-07-29" },
+  { area:1, score:8.5, src:"google", rate:4.4, cnt:583, name:"Hotel Anita — פראמה",
+    price:"~€100–130 (≈390–500 ₪)",
+    notes:"בריכה יפה, חדרים נקיים ומשפחה מארחת חמה. 5 דק׳ מקאנוני; 15 דק׳ נסיעה לעיר, יש הרבה מדרגות.",
+    lat:39.5859871, lng:19.9107332, link:"https://www.google.com/maps/search/?api=1&query=39.5859871,19.9107332&query_place_id=ChIJo99S9lBeWxMRHPTpyHVWIMk" },
+  { area:1, score:8.5, src:"airbnb", rate:5.0, cnt:10, name:"Santos Pool-View Apt — דאסיה (Airbnb)",
+    price:"מחיר בקישור · הערכה €110–150",
+    notes:"2 חדרי שינה ל-5 אורחים, 50 מ׳ מחוף דאסיה, בריכה, מטבח מלא וחניה פרטית. 20 דק׳ מהעיר העתיקה.",
+    lat:39.6825, lng:19.8398, link:"https://www.airbnb.com/rooms/18389844?check_in=2026-07-27&check_out=2026-07-29" },
+  { area:1, score:8, src:"google", rate:4.6, cnt:38, name:"Anna Apartments — קאנוני",
+    price:"~€70–100 (≈270–390 ₪)",
+    notes:"דירות מלאות עם מטבח (מעולה לכשרות), חניה ומרפסת צפייה במטוסים. אין בריכה ומעט ביקורות.",
+    lat:39.5923337, lng:19.9165886, link:"https://www.google.com/maps/search/?api=1&query=39.5923337,19.9165886&query_place_id=ChIJ50-8QsFfWxMRnfxEWyF05rc" },
+  { area:1, score:8, src:"google", rate:4.8, cnt:78, name:"Kalypso Apartments — גוביה",
+    price:"~€65–95 (≈250–370 ₪)",
+    notes:"מטבחון, בריכה וחניה במחיר נמוך; ׳הרגשה של בית׳ לפי האורחים. 10 דק׳ נסיעה לעיר.",
+    lat:39.6491022, lng:19.8460135, link:"https://www.google.com/maps/search/?api=1&query=39.6491022,19.8460135&query_place_id=ChIJ9cmiA5JbWxMR_QGyx7RUEY0" },
+  { area:1, score:8, src:"airbnb", rate:4.95, cnt:42, name:"Porta Spilea Studio — העיר העתיקה (Airbnb)",
+    price:"מחיר בקישור · הערכה €90–130",
+    notes:"סטודיו מעל השער הוונציאני ששרד בעיר העתיקה — חוויה מיוחדת; חניה בחניון עירוני מחוץ לחומות.",
+    lat:39.6266, lng:19.9183, link:"https://www.airbnb.com/rooms/735194680113703494?check_in=2026-07-27&check_out=2026-07-29" },
+  { area:1, score:7.5, src:"google", rate:4.6, cnt:307, name:"Palapart Gikas — גוביה",
+    price:"~€85–120",
+    notes:"דירות מרווחות ו-4 בריכות; חניה מוגבלת וניקיון לא תמיד עקבי.",
+    lat:39.6537494, lng:19.8390817, link:"https://www.google.com/maps/search/?api=1&query=39.6537494,19.8390817&query_place_id=ChIJgSic29xbWxMR3fyN3o_Z70k" },
+  { area:1, score:7, src:"google", rate:4.0, cnt:1877, name:"Ariti Grand Hotel — קאנוני",
+    price:"~€130–170",
+    notes:"4 כוכבים ליד המלון הנוכחי, בריכה ושירות מוערך — אבל לא הרבה יותר זול.",
+    lat:39.5933303, lng:19.9183845, link:"https://www.google.com/maps/search/?api=1&query=39.5933303,19.9183845&query_place_id=ChIJYb3BxkNeWxMRB_wVn0I5Ys4" },
+  { area:1, score:7, src:"google", rate:4.1, cnt:799, name:"Sunset Hotel — פוטאמוס",
+    price:"~€65–90 (≈250–350 ₪)",
+    notes:"הזול במלונות: בריכה גדולה וארוחת בוקר מצוינת; חדרים מיושנים ומיטות קשות לפי הביקורות.",
+    lat:39.6338246, lng:19.8798001, link:"https://www.google.com/maps/search/?api=1&query=39.6338246,19.8798001&query_place_id=ChIJiVzl3DxcWxMRpVwu66dqlE4" },
+  { area:1, score:6.5, src:"google", rate:4.0, cnt:549, name:"Hotel Bretagne — ליד השדה",
+    price:"~€90–120",
+    notes:"צמוד לשדה — נוח מאוד ללילה ראשון/אחרון; בלי אווירת חופשה.",
+    lat:39.6121223, lng:19.915401, link:"https://www.google.com/maps/search/?api=1&query=39.6121223,19.915401&query_place_id=ChIJFXY-NndeWxMRprCUY0DIKTk" },
+  { area:1, score:6, src:"google", rate:4.1, cnt:548, name:"Konstantinoupolis — העיר העתיקה",
+    price:"~€90–120",
+    notes:"קסם ונציאני מול הנמל הישן, אבל בלי חניה, רועש בקיץ ו-WiFi חלש — פחות מתאים עם רכב.",
+    lat:39.6259746, lng:19.9198324, link:"https://www.google.com/maps/search/?api=1&query=39.6259746,19.9198324&query_place_id=ChIJjVK0q8RdWxMRCqJUothDkEE" },
+  { area:2, score:9.5, src:"airbnb", rate:5.0, cnt:29, name:"04 | Sea View Apartment — פלאוקסטריצה (Airbnb)",
+    price:"מחיר בקישור · הערכה €100–140",
+    notes:"Guest Favorite ★5.0 — דירה מול הים עם מרפסת פרטית גדולה, חניה חינם, עד 6 אורחים. ההחלפה הישירה ל-Akrotiri.",
+    lat:39.6748, lng:19.7092, link:"https://www.airbnb.com/rooms/22569298?check_in=2026-07-29&check_out=2026-07-31" },
+  { area:2, score:9, src:"google", rate:4.6, cnt:444, name:"Odysseus Hotel — פלאוקסטריצה",
+    price:"~€120–150 (≈470–580 ₪)",
+    notes:"אותו דירוג כמו Akrotiri בהרבה פחות: בריכה גדולה, מרפסות נוף ו׳מחירים נוחים׳ לפי הביקורות.",
+    lat:39.6751764, lng:19.707385, link:"https://www.google.com/maps/search/?api=1&query=39.6751764,19.707385&query_place_id=ChIJHTP9Fx9RWxMRYqLm94Qf_yc" },
+  { area:2, score:9, src:"google", rate:4.9, cnt:102, name:"Katerina Studios — פלאוקסטריצה",
+    price:"~€60–90 (≈230–350 ₪)",
+    notes:"הדירוג הגבוה באזור: סטודיו עם מטבחון, נוף ים ומארחים מהוללים; עלייה ברגל בגבעה.",
+    lat:39.6770066, lng:19.7114411, link:"https://www.google.com/maps/search/?api=1&query=39.6770066,19.7114411&query_place_id=ChIJX129Ah5RWxMR9kxIXuQlwhg" },
+  { area:2, score:8.5, src:"google", rate:4.9, cnt:62, name:"Marilena Studios — ליאפאדס",
+    price:"~€60–85",
+    notes:"בריכה, חניה, נקי ושקט להפליא; 10 דק׳ הליכה לחוף.",
+    lat:39.676344, lng:19.7246119, link:"https://www.google.com/maps/search/?api=1&query=39.676344,19.7246119&query_place_id=ChIJ-342R-9QWxMRKxGKdOCkM5w" },
+  { area:2, score:8, src:"google", rate:4.7, cnt:216, name:"Avra Sunset Sea View — ליאפאדס",
+    price:"~€90–120",
+    notes:"בריכה מדורגת שמתאימה לילדים ונוף שקיעה; כפר הליכתי עם שני חופים, 8 דק׳ נסיעה לאליפה.",
+    lat:39.6726059, lng:19.7341402, link:"https://www.google.com/maps/search/?api=1&query=39.6726059,19.7341402&query_place_id=ChIJu1hJUyJRWxMRbU6ymiui8IQ" },
+  { area:2, score:8, src:"airbnb", rate:4.87, cnt:68, name:"Nina Apartments n.5 — אגיוס גאורגיוס (Airbnb)",
+    price:"מחיר בקישור · הערכה €80–110",
+    notes:"גינה ענקית, 200 מ׳ מחוף אגיוס גאורגיוס — החוף של יום חמישי; 25 דק׳ מנקודת השייט באליפה.",
+    lat:39.7218, lng:19.679, link:"https://www.airbnb.com/rooms/27823413?check_in=2026-07-29&check_out=2026-07-31" },
+  { area:2, score:7.5, src:"google", rate:4.4, cnt:374, name:"Zefiros Traditional — פלאוקסטריצה",
+    price:"~€100–130",
+    notes:"ממש על החוף הראשי, 11 חדרים ביתיים וארוחת בוקר מעולה; בלי בריכה וחדרים קטנים.",
+    lat:39.6728344, lng:19.7034522, link:"https://www.google.com/maps/search/?api=1&query=39.6728344,19.7034522&query_place_id=ChIJJ3KbUCJRWxMRo4Aa_f8eFeM" },
+  { area:2, score:7, src:"google", rate:4.8, cnt:19, name:"Christina Studios — פלאוקסטריצה",
+    price:"~€50–80",
+    notes:"הזול באזור, צמוד למפרצים התחתונים; חניה בעייתית וחדרים מיושנים.",
+    lat:39.6730765, lng:19.7017935, link:"https://www.google.com/maps/search/?api=1&query=39.6730765,19.7017935&query_place_id=ChIJ7x66kiJRWxMRbVVxek3cXQ8" },
+  { area:3, score:8, src:"google", rate:4.7, cnt:307, name:"Sidari Beach Hotel — סידארי (חלופת צפון)",
+    price:"~€90–120",
+    notes:"אם ישנים בצפון בלילה האחרון: על החוף, נוף ים וחניה חינם; יציאה בשישי ב-07:40 לשדה.",
+    lat:39.7895698, lng:19.7193851, link:"https://www.google.com/maps/search/?api=1&query=39.7895698,19.7193851&query_place_id=ChIJ2xSb6uBOWxMRAoHUpG58GpM" },
+];
+
+/* ===== מצב ===== */
+var map, markers = [], routeGroups = {}, currentDay = 0, selectedIdx = -1;
+var bedsOn = true, bedMarkers = [], selectedBed = -1;
+var tour = { on: false, idx: 0, list: [] };
+
+function dayMeta(d) { for (var i = 0; i < DAYS.length; i++) if (DAYS[i].d === d) return DAYS[i]; return DAYS[0]; }
+function visibleStops() {
+  var out = [];
+  for (var i = 0; i < STOPS.length; i++) if (currentDay === 0 || STOPS[i].d === currentDay) out.push(i);
+  return out;
+}
+
+/* ===== אתחול ===== */
+function boot() {
+  if (typeof L === "undefined") { document.getElementById("nonet").style.display = "flex"; return; }
+  map = L.map("map", { zoomControl: false, attributionControl: true });
+  L.control.zoom({ position: "bottomright" }).addTo(map);
+  L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png", {
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>'
+  }).addTo(map);
+
+  buildMarkers();
+  buildBedMarkers();
+  buildRoutes();
+  renderTabs();
+  renderList();
+  applyFilter();
+
+  document.getElementById("tipsBtn").addEventListener("click", openTips);
+  document.getElementById("tourBtn").addEventListener("click", startTour);
+  document.getElementById("dClose").addEventListener("click", closeDetail);
+  document.getElementById("tPrev").addEventListener("click", function () { tourGo(tour.idx - 1); });
+  document.getElementById("tNext").addEventListener("click", function () { tourGo(tour.idx + 1); });
+  document.getElementById("tExit").addEventListener("click", endTour);
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") { if (tour.on) endTour(); else closeDetail(); }
+    if (tour.on && e.key === "ArrowLeft") tourGo(tour.idx + 1);
+    if (tour.on && e.key === "ArrowRight") tourGo(tour.idx - 1);
+  });
+}
+
+/* ===== סמנים ===== */
+function buildMarkers() {
+  var counters = {};
+  for (var i = 0; i < STOPS.length; i++) {
+    var s = STOPS[i];
+    counters[s.d] = (counters[s.d] || 0) + 1;
+    s.numInDay = counters[s.d];
+    var m = L.marker([s.lat, s.lng], { icon: makeIcon(s, false), title: s.name, riseOnHover: true });
+    (function (idx) { m.on("click", function () { selectStop(idx, true); }); })(i);
+    m.bindTooltip(s.name, { direction: "top", offset: [0, -14], className: "tip" });
+    markers.push(m);
+  }
+}
+function makeIcon(s, active) {
+  var c = dayMeta(s.d).color;
+  var cls = "pin" + (active ? " pin-on" : "");
+  var html = '<div class="' + cls + '" style="--c:' + c + '">' + s.numInDay + "</div>";
+  return L.divIcon({ html: html, className: "pinwrap", iconSize: [34, 34], iconAnchor: [17, 17] });
+}
+
+/* ===== מסלולים ===== */
+function buildRoutes() {
+  for (var d = 1; d <= 5; d++) routeGroups[d] = L.layerGroup();
+  for (var d2 = 1; d2 <= 5; d2++) buildDayRoute(d2);
+}
+function buildDayRoute(d) {
+  var color = dayMeta(d).color;
+  var drivePts = [], prevDrive = null;
+  if (ROUTE_ORIGIN[d]) { drivePts.push(ROUTE_ORIGIN[d]); prevDrive = ROUTE_ORIGIN[d]; }
+  for (var i = 0; i < STOPS.length; i++) {
+    var s = STOPS[i];
+    if (s.d !== d) continue;
+    if (s.boat) {
+      if (prevDrive) {
+        L.polyline([prevDrive, [s.lat, s.lng]], { color: "#0FA3A3", weight: 3, dashArray: "2 8", opacity: 0.95 })
+          .addTo(routeGroups[d]).bindTooltip("⛵ קטע בסירה", { sticky: true, className: "tip" });
+      }
+    } else {
+      drivePts.push([s.lat, s.lng]);
+      prevDrive = [s.lat, s.lng];
+    }
+  }
+  if (drivePts.length < 2) return;
+  var base = L.polyline(drivePts, { color: color, weight: 4, dashArray: "6 8", opacity: 0.75 }).addTo(routeGroups[d]);
+  upgradeRoute(d, drivePts, base, color);
+}
+function upgradeRoute(d, pts, baseLine, color) {
+  var coords = pts.map(function (p) { return p[1] + "," + p[0]; }).join(";");
+  var url = "https://router.project-osrm.org/route/v1/driving/" + coords + "?overview=full&geometries=geojson";
+  fetch(url).then(function (r) { return r.json(); }).then(function (j) {
+    if (!j || !j.routes || !j.routes[0]) return;
+    var line = j.routes[0].geometry.coordinates.map(function (c) { return [c[1], c[0]]; });
+    routeGroups[d].removeLayer(baseLine);
+    L.polyline(line, { color: "#ffffff", weight: 7, opacity: 0.85 }).addTo(routeGroups[d]);
+    L.polyline(line, { color: color, weight: 4, opacity: 0.95 }).addTo(routeGroups[d]);
+  }).catch(function () { /* נשארים עם הקו המקווקו */ });
+}
+
+/* ===== סינון לפי יום ===== */
+function applyFilter() {
+  var vis = visibleStops();
+  for (var i = 0; i < markers.length; i++) {
+    if (vis.indexOf(i) !== -1) markers[i].addTo(map); else map.removeLayer(markers[i]);
+  }
+  for (var bm = 0; bm < bedMarkers.length; bm++) {
+    if (bedsOn && bedAreaVisible(LODGING[bm].area)) bedMarkers[bm].addTo(map); else map.removeLayer(bedMarkers[bm]);
+  }
+  for (var d = 1; d <= 5; d++) {
+    if (currentDay === 0 || currentDay === d) routeGroups[d].addTo(map); else map.removeLayer(routeGroups[d]);
+  }
+  var b = L.latLngBounds([]);
+  vis.forEach(function (i) { b.extend([STOPS[i].lat, STOPS[i].lng]); });
+  if (currentDay !== 0 && ROUTE_ORIGIN[currentDay]) b.extend(ROUTE_ORIGIN[currentDay]);
+  if (b.isValid()) map.fitBounds(b.pad(0.18));
+  var dt = document.getElementById("dayTitle");
+  if (currentDay === 0) {
+    dt.innerHTML = 'כל המסלול · 19 עצירות · 4 לילות<span class="ph2">🛏️ שני–שלישי: Corfu Holiday Palace (קאנוני) · רביעי–חמישי: Akrotiri Beach Resort (פלאוקסטריצה)</span>';
+  } else {
+    dt.innerHTML = "יום " + dayMeta(currentDay).chip + " · " + dayMeta(currentDay).title + '<span class="ph2">' + dayMeta(currentDay).hotel + "</span>";
+  }
+}
+
+/* ===== כרטיסיות ימים ===== */
+function renderTabs() {
+  var el = document.getElementById("tabs");
+  var html = '<button class="chip chip-all on" data-d="0">כל הימים</button>';
+  DAYS.forEach(function (d) {
+    html += '<button class="chip" data-d="' + d.d + '" style="--c:' + d.color + '">' + d.chip + "</button>";
+  });
+  html += '<button class="chip chip-bed on" data-bed="1">🛏️ חלופות לינה</button>';
+  el.innerHTML = html;
+  el.addEventListener("click", function (e) {
+    var b = e.target.closest(".chip");
+    if (!b) return;
+    if (b.hasAttribute("data-bed")) {
+      bedsOn = !bedsOn;
+      b.classList.toggle("on", bedsOn);
+      if (!bedsOn && selectedBed >= 0) closeDetail();
+      applyFilter();
+      return;
+    }
+    currentDay = parseInt(b.getAttribute("data-d"), 10);
+    var chips = el.querySelectorAll(".chip");
+    for (var i = 0; i < chips.length; i++) if (!chips[i].hasAttribute("data-bed")) chips[i].classList.toggle("on", chips[i] === b);
+    if (tour.on) endTour();
+    closeDetail();
+    renderList();
+    applyFilter();
+  });
+}
+
+/* ===== רשימת עצירות ===== */
+function renderList() {
+  var el = document.getElementById("list"), html = "", lastDay = 0;
+  visibleStops().forEach(function (i) {
+    var s = STOPS[i], dm = dayMeta(s.d);
+    if (currentDay === 0 && s.d !== lastDay) {
+      html += '<div class="dayhead" style="--c:' + dm.color + '"><span>יום ' + dm.chip + "</span><em>" + dm.title + "</em><i>" + dm.hotel + "</i></div>";
+      lastDay = s.d;
+    }
+    if (s.leg) html += '<div class="leg">' + s.leg + "</div>";
+    html += '<button class="stop" data-i="' + i + '" style="--c:' + dm.color + '">' +
+      '<span class="badge">' + s.numInDay + "</span>" +
+      '<span class="stoptxt"><span class="stoptime">' + s.time + " · " + s.icon + '</span><span class="stopname">' + s.name + "</span></span>" +
+      "<span class='chev'>‹</span></button>";
+  });
+  el.innerHTML = html;
+  el.addEventListener("click", listClick);
+}
+function listClick(e) {
+  var b = e.target.closest(".stop");
+  if (!b) return;
+  selectStop(parseInt(b.getAttribute("data-i"), 10), true);
+}
+
+/* ===== בחירת עצירה + כרטיס פרטים ===== */
+function selectStop(i, fly) {
+  if (selectedIdx >= 0) markers[selectedIdx].setIcon(makeIcon(STOPS[selectedIdx], false));
+  if (selectedBed >= 0) { bedMarkers[selectedBed].setIcon(makeBedIcon(LODGING[selectedBed], false)); selectedBed = -1; }
+  selectedIdx = i;
+  var s = STOPS[i];
+  markers[i].setIcon(makeIcon(s, true));
+  if (fly) map.flyTo([s.lat, s.lng], Math.max(map.getZoom(), 14), { duration: 0.8 });
+  openDetail(s);
+  var rows = document.querySelectorAll(".stop");
+  for (var k = 0; k < rows.length; k++) rows[k].classList.toggle("sel", parseInt(rows[k].getAttribute("data-i"), 10) === i);
+}
+function openDetail(s) {
+  var dm = dayMeta(s.d);
+  var waze = "https://waze.com/ul?ll=" + s.lat + "%2C" + s.lng + "&navigate=yes";
+  var h = "";
+  if (s.photo) h += '<div class="dphoto"><img src="' + s.photo + '" alt="" loading="lazy" onerror="this.parentNode.style.display=\'none\'"></div>';
+  h += '<div class="dbody">' +
+    '<div class="deyebrow"><span class="dot" style="background:' + dm.color + '"></span>יום ' + dm.chip + " · עצירה " + s.numInDay + " · " + s.time + "</div>" +
+    '<h3 class="dname">' + s.icon + " " + s.name + "</h3>";
+  if (s.rating) h += '<div class="drating">★ ' + s.rating.toFixed(1) + ' <span>בגוגל</span></div>';
+  if (s.leg) h += '<div class="dleg">' + s.leg + "</div>";
+  h += '<p class="dnotes">' + s.notes + "</p>" +
+    '<div class="dbtns"><a class="btn btn-a" href="' + s.gmap + '" target="_blank" rel="noopener">פתיחה בגוגל מפות</a>' +
+    '<a class="btn btn-b" href="' + waze + '" target="_blank" rel="noopener">ניווט ב-Waze</a></div></div>';
+  document.getElementById("dContent").innerHTML = h;
+  document.getElementById("detail").classList.add("open");
+}
+function closeDetail() {
+  document.getElementById("detail").classList.remove("open");
+  if (selectedIdx >= 0) { markers[selectedIdx].setIcon(makeIcon(STOPS[selectedIdx], false)); selectedIdx = -1; }
+  if (selectedBed >= 0) { bedMarkers[selectedBed].setIcon(makeBedIcon(LODGING[selectedBed], false)); selectedBed = -1; }
+  var rows = document.querySelectorAll(".stop.sel");
+  for (var k = 0; k < rows.length; k++) rows[k].classList.remove("sel");
+}
+
+/* ===== טיפים ===== */
+function openTips() {
+  var h = '<div class="dbody"><div class="deyebrow"><span class="dot" style="background:#0B2E4F"></span>לפני שיוצאים</div>' +
+    '<h3 class="dname">💡 טיפים לכל הטיול</h3><ul class="tips">';
+  TIPS.forEach(function (t) { h += "<li>" + t + "</li>"; });
+  h += "</ul></div>";
+  document.getElementById("dContent").innerHTML = h;
+  document.getElementById("detail").classList.add("open");
+}
+
+/* ===== מצב סיור (מצגת) ===== */
+function startTour() {
+  tour.list = visibleStops();
+  if (!tour.list.length) return;
+  tour.on = true;
+  document.getElementById("tourbar").classList.add("show");
+  document.getElementById("tourBtn").classList.add("hide");
+  tourGo(0);
+}
+function tourGo(n) {
+  if (n < 0 || n >= tour.list.length) return;
+  tour.idx = n;
+  document.getElementById("tCount").textContent = (n + 1) + " / " + tour.list.length;
+  document.getElementById("tPrev").disabled = n === 0;
+  document.getElementById("tNext").disabled = n === tour.list.length - 1;
+  selectStop(tour.list[n], true);
+}
+function endTour() {
+  tour.on = false;
+  document.getElementById("tourbar").classList.remove("show");
+  document.getElementById("tourBtn").classList.remove("hide");
+  closeDetail();
+}
+
+
+/* ===== חלופות לינה: סמנים ולוגיקה ===== */
+function bedAreaVisible(area) {
+  if (currentDay === 0) return true;
+  if (currentDay <= 2) return area === 1;
+  if (currentDay === 3) return area === 2;
+  if (currentDay === 4) return area === 2 || area === 3;
+  return false;
+}
+function makeBedIcon(l, active) {
+  var cls = "pinbed" + (active ? " pinbed-on" : "");
+  return L.divIcon({ html: '<div class="' + cls + '">🛏️</div>', className: "pinwrap", iconSize: [30, 30], iconAnchor: [15, 15] });
+}
+function buildBedMarkers() {
+  for (var i = 0; i < LODGING.length; i++) {
+    var m = L.marker([LODGING[i].lat, LODGING[i].lng], { icon: makeBedIcon(LODGING[i], false), title: LODGING[i].name });
+    (function (idx) { m.on("click", function () { selectBed(idx); }); })(i);
+    m.bindTooltip(LODGING[i].name + " · " + LODGING[i].score + "/10", { direction: "top", offset: [0, -12], className: "tip" });
+    bedMarkers.push(m);
+  }
+}
+function selectBed(i) {
+  if (selectedIdx >= 0) { markers[selectedIdx].setIcon(makeIcon(STOPS[selectedIdx], false)); selectedIdx = -1; }
+  if (selectedBed >= 0) bedMarkers[selectedBed].setIcon(makeBedIcon(LODGING[selectedBed], false));
+  selectedBed = i;
+  var l = LODGING[i];
+  bedMarkers[i].setIcon(makeBedIcon(l, true));
+  map.flyTo([l.lat, l.lng], Math.max(map.getZoom(), 13), { duration: 0.7 });
+  openLodging(l);
+}
+function openLodging(l) {
+  var areaTxt = l.area === 1 ? "בסיס קאנוני/העיר · לילות שני–שלישי" : l.area === 2 ? "בסיס פלאוקסטריצה · לילות רביעי–חמישי" : "חלופה ללילה האחרון בצפון";
+  var srcTxt = l.src === "airbnb" ? "★" + l.rate + " ב-Airbnb · " + l.cnt + " ביקורות" : "★" + l.rate + " בגוגל · " + l.cnt + " ביקורות";
+  var waze = "https://waze.com/ul?ll=" + l.lat + "%2C" + l.lng + "&navigate=yes";
+  var btnTxt = l.src === "airbnb" ? "פתיחה ב-Airbnb (עם התאריכים)" : "פתיחה בגוגל מפות";
+  var h = '<div class="dbody">' +
+    '<div class="deyebrow"><span class="dot" style="background:#D6336C"></span>' + areaTxt + "</div>" +
+    '<h3 class="dname">🛏️ ' + l.name + "</h3>" +
+    '<div class="scorerow"><span class="scorebadge">' + l.score + "/10</span><span class=\"bedsrc\">" + srcTxt + "</span></div>" +
+    '<div class="dleg">💶 ' + l.price + "</div>" +
+    '<p class="dnotes">' + l.notes + (l.src === "airbnb" ? '<br><span class="dapprox">📍 מיקום משוער — Airbnb חושף כתובת מדויקת רק לאחר ההזמנה.</span>' : "") + "</p>" +
+    '<div class="dbtns"><a class="btn btn-a" href="' + l.link + '" target="_blank" rel="noopener">' + btnTxt + "</a>" +
+    '<a class="btn btn-b" href="' + waze + '" target="_blank" rel="noopener">ניווט ב-Waze</a></div></div>';
+  document.getElementById("dContent").innerHTML = h;
+  document.getElementById("detail").classList.add("open");
+}
+
+document.addEventListener("DOMContentLoaded", boot);
+</script>
+</body>
+</html>
