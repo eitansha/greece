@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>קורפו טיול זוגי רומנטי ❤️ 27–31 ביולי 2026</title>
+<title>קורפו - טיול זוגי רומנטי 😍 ⛵</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E⛵%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -90,6 +90,13 @@ header{background:linear-gradient(180deg,var(--ink) 0%,var(--ink2) 100%);color:#
 .pinbed-ch{background:#D6336C;border-color:#fff}
 .btn-c{background:#D6336C;color:#fff;border:none;cursor:pointer;width:100%;font:800 13.5px 'Heebo',sans-serif;padding:10px;border-radius:10px;margin-top:8px}
 .btn-c:hover{background:#BE2B5F}
+.den{margin:5px 0 2px;font-size:12.5px;color:#33536E;background:var(--wash);border:1px dashed #BFD2DD;border-radius:8px;padding:5px 9px;cursor:pointer;direction:ltr;text-align:left}
+.den b{font-weight:700}
+.den.copied{border-color:#0FA3A3}
+.den.copied::after{content:" ✓ הועתק";color:#0FA3A3;font-weight:700;direction:rtl}
+.dmeta{margin:6px 0 2px;font-size:12.5px;color:#33536E;background:#F4F8F6;border:1px solid #DCE9E4;border-radius:8px;padding:6px 9px;line-height:1.75}
+.dmeta a{color:var(--sea);font-weight:800;text-decoration:none}
+.dayhead u{text-decoration:none;color:var(--mut);font-size:11.5px;margin-top:2px}
 /* ===== כרטיס פרטים ===== */
 #detail{position:absolute;inset-inline-start:14px;bottom:14px;width:min(380px,calc(100% - 28px));max-height:calc(100% - 28px);
   background:#fff;border-radius:16px;box-shadow:0 14px 44px rgba(11,46,79,.3);overflow:hidden;display:flex;flex-direction:column;
@@ -201,139 +208,139 @@ header{background:linear-gradient(180deg,var(--ink) 0%,var(--ink2) 100%);color:#
 <script>
 /* ===== נתוני הטיול ===== */
 var DAYS = [
-  { d: 1, chip: "שני 27.7", title: "נחיתה וערב ראשון בעיר העתיקה", color: "#7A5AF8", hotel: "🏨 לינה: Corfu Holiday Palace — קאנוני" },
-  { d: 2, chip: "שלישי 28.7", title: "קרקירה: מבצר, גנים, דאסיה וקאנוני", color: "#1E88D2", hotel: "🏨 לינה (לילה 2): Corfu Holiday Palace" },
-  { d: 3, chip: "רביעי 29.7", title: "ג׳מבו, שייט פרטי ושקיעה בלאקונס", color: "#0FA3A3", hotel: "🏠 לינה: 04 Sea View (Airbnb) — פלאוקסטריצה" },
-  { d: 4, chip: "חמישי 30.7", title: "פורטו טימוני, סידארי ושקיעה בלוגאס", color: "#F08C1B", hotel: "🏠 לינה (לילה 2): 04 Sea View (Airbnb)" },
-  { d: 5, chip: "שישי 31.7", title: "ישר לשדה — טיסה 11:45", color: "#E14D5A", hotel: "✈️ טיסה הביתה — בלי לינה" }
+  { d: 1, chip: "שני 27.7", title: "נחיתה וערב ראשון בעיר העתיקה", color: "#7A5AF8", hotel: "🏨 לינה: Corfu Holiday Palace — קאנוני", wx: "☀️ ערב נעים 24–27° · ים ~26°" },
+  { d: 2, chip: "שלישי 28.7", title: "קרקירה: מבצר, גנים, דאסיה וקאנוני", color: "#1E88D2", hotel: "🏨 לינה (לילה 2): Corfu Holiday Palace", wx: "☀️ 23–32° · יבש · ים ~26°" },
+  { d: 3, chip: "רביעי 29.7", title: "ג׳מבו, שייט פרטי ושקיעה בלאקונס", color: "#0FA3A3", hotel: "🏠 לינה: 04 Sea View (Airbnb) — פלאוקסטריצה", wx: "☀️ 23–32° · בריזה מערבית אחה״צ — לכן השייט בבוקר" },
+  { d: 4, chip: "חמישי 30.7", title: "פורטו טימוני, סידארי ושקיעה בלוגאס", color: "#F08C1B", hotel: "🏠 לינה (לילה 2): 04 Sea View (Airbnb)", wx: "☀️ 22–31° בצפון · רוח קלה על המצוקים בערב" },
+  { d: 5, chip: "שישי 31.7", title: "ישר לשדה — טיסה 11:45", color: "#E14D5A", hotel: "✈️ טיסה הביתה — בלי לינה", wx: "☀️ בוקר נעים 24–27°" }
 ];
 
 /* מוצא לנתיב הנסיעה של יום שישי (המלון בפלאוקסטריצה) */
 var ROUTE_ORIGIN = { 5: [39.6748, 19.7092] };
 
 var STOPS = [
-  { d:1, time:"19:05", icon:"✈️", name:"שדה התעופה קורפו (CFU)", leg:null,
+  { d:1, time:"19:05", icon:"✈️", name:"שדה התעופה קורפו (CFU)", en:"Corfu Airport Ioannis Kapodistrias (CFU)", hrs:"דלפקי השכרת הרכב פתוחים לכל הנחיתות", leg:null,
     notes:"המראה מנתב״ג 16:45, נחיתה משוערת ~19:05 — אין הפרש שעות מול ישראל בקיץ. איסוף הרכב השכור: להזמין מראש חברה עם עמדה בטרמינל עצמו.",
     rating:null, lat:39.6071325, lng:19.9149916,
     gmap:"https://maps.google.com/?cid=3707393816662574799",
     photo:"https://lh3.googleusercontent.com/place-photos/AJRVUZPCTD03Q9VSGT9bfNUHdo_6z_-hBmyz9kmcYEKYdRXI2ZI-nT0u_TJVzYWYaoMuSChvseMk8KXwjBf6cvYkqalZM1-FDbJuakrungLeOf7bGhTFzg0gnZrOMBy9GXdbUrubiLpIFQWK2cSV-g=s4800-w800-h600" },
-  { d:1, time:"20:00", icon:"🏨", hotelArea:1, name:"צ׳ק-אין: Corfu Holiday Palace — קאנוני", leg:"🚗 5 דק׳ מהשדה",
+  { d:1, time:"20:00", icon:"🏨", hotelArea:1, name:"צ׳ק-אין: Corfu Holiday Palace — קאנוני", en:"Corfu Holiday Palace Hotel, Kanoni", tel:"+30 2661 036540", hrs:"קבלה 24/7 · צ׳ק-אין מ-14:00", leg:"🚗 5 דק׳ מהשדה",
     notes:"לפי בקשתכם — המלון ללילות העיר: בריכה, מעלית ישר לחוף פרטי, נוף לאי העכברים, 5 דק׳ מהשדה (★4.1, 2,061 ביקורות). מומלץ לאמת זמינות ומחיר בכפתור 🗓️ שבכרטיס הוורוד שלו.",
     rating:4.1, lat:39.5920394, lng:19.9189168,
     gmap:"https://maps.google.com/?cid=10398298594020330257",
     photo:null },
-  { d:1, time:"21:00", icon:"🌙", name:"טיול ערב — הליסטון והעיר העתיקה", leg:"🚗 ~15 דק׳ · חניה ליד הנמל הישן",
+  { d:1, time:"21:00", icon:"🌙", name:"טיול ערב — הליסטון והעיר העתיקה", en:"Liston, Corfu Old Town", hrs:"פתוח תמיד · החנויות בקיץ עד ~23:00", leg:"🚗 ~15 דק׳ · חניה ליד הנמל הישן",
     notes:"ערב ראשון רגוע: הליסטון — טיילת הקשתות המוארת בסגנון פריזאי — הספיאנדה והסמטאות הוונציאניות. ארוחת ערב עצמאית ממה שהבאתם, ומחר חוזרים לכאן לסיור מלא. בסיום — חזרה למלון (~10 דק׳).",
     rating:null, lat:39.6246449, lng:19.9240325,
     gmap:"https://www.google.com/maps/search/?api=1&query=39.6246449,19.9240325&query_place_id=ChIJIzlhF91dWxMRj2SqikBgFio",
     photo:null },
 
-  { d:2, time:"09:30", icon:"🏰", name:"המבצר הישן (Old Fortress)", leg:"🚗 12 דק׳ מהמלון",
+  { d:2, time:"09:30", icon:"🏰", name:"המבצר הישן (Old Fortress)", en:"Old Fortress of Corfu (Palaio Frourio)", tel:"+30 2661 048120", hrs:"כל יום 8:00–20:00 · כניסה ~10€ · ~שעתיים סיור", leg:"🚗 12 דק׳ מהמלון",
     notes:"להגיע מוקדם לפני החום. עלייה לפסגה עם נוף 360° על העיר והים. כניסה ~10€, פתוח 8:00–20:00.",
     rating:4.6, lat:39.6234796, lng:19.9274977,
     gmap:"https://maps.google.com/?cid=3822803553805730948",
     photo:"https://lh3.googleusercontent.com/place-photos/AJRVUZOgVnZ7DrMnS1sdznKGrsuqeZPXr21Ze2KDweXDlqcDV7FgrarGQSJx6ZInRgTIx8nI_WG2TVACnOe4Bok6UaewJmEPgAiQEFLrLZ3Ar74Bqco9p4-ZvGD64zqrbwvy96YeZjZ2COu_HtVx6yM=s4800-w800-h600" },
-  { d:2, time:"11:00", icon:"🏊", name:"פאלירקי — רחצה מתחת לחומות", leg:"🚶 5 דק׳ מהמבצר",
+  { d:2, time:"11:00", icon:"🏊", name:"פאלירקי — רחצה מתחת לחומות", en:"Faliraki Beach, Corfu Town", hrs:"פתוח תמיד · כניסה חופשית", leg:"🚶 5 דק׳ מהמבצר",
     notes:"פינת הרחצה של העיר ממש מתחת לחומות המבצר — קופצים למים צלולים מהרציף, והשנורקל לכיוון המבצר מלא דגים. חינם; נעלי מים יעזרו. טבילה קצרה וממשיכים.",
     rating:4.3, lat:39.6261744, lng:19.9252787,
     gmap:"https://www.google.com/maps/search/?api=1&query=39.6261744,19.9252787&query_place_id=ChIJGZNQmMJdWxMR12K74Q_jZhc",
     photo:null },
-  { d:2, time:"11:45", icon:"🌳", name:"Garden of the People", leg:"🚶 5 דק׳ הליכה מהמבצר",
+  { d:2, time:"11:45", icon:"🌳", name:"Garden of the People", en:"Garden of the People, Corfu", hrs:"פארק פתוח · כניסה חופשית", leg:"🚶 5 דק׳ הליכה מהמבצר",
     notes:"הגן הירוק והשקט מהרשימה שלכם — צל, נוף לים ושלווה באמצע העיר. משם ממשיכים דרך הסמטאות אל הרובע היהודי.",
     rating:4.8, lat:39.6255698, lng:19.9254252,
     gmap:"https://maps.google.com/?cid=8612065011616512970",
     photo:"https://lh3.googleusercontent.com/place-photos/AJRVUZNrd33wAyZTIlfnTyvHCJsowby3hbAx1U7Lg1hcxiDo9ahTOnieQ8LdILZXJc1_DfzBYMGRZicKrRGDzFg5McezX5iwH0IB6ONz21Nzcgw4kwuW9jFmdnCGLfvrBVaL6h1oqcJdpqt6OWOEkoAeyHZoHQ=s4800-w800-h600" },
-  { d:2, time:"12:30", icon:"🕍", name:"בית הכנסת Scuola Greca — הרובע היהודי", leg:"🚶 6 דק׳ הליכה דרך הסמטאות",
+  { d:2, time:"12:30", icon:"🕍", name:"בית הכנסת Scuola Greca — הרובע היהודי", en:"Corfu Synagogue (Scuola Greca), Velissariou 4", tel:"+30 26610 47777", hrs:"שני–שבת 10:00–16:00 · ראשון סגור · כניסה חופשית", leg:"🚶 6 דק׳ הליכה דרך הסמטאות",
     notes:"בית הכנסת מהמאה ה-17 — היחיד ששרד את המלחמה — פועל עד היום בלב הרובע היהודי (אווראיקי). פתוח שני–שבת 10:00–16:00, כניסה חופשית, לבוש צנוע. משם ארוחת צהריים עצמאית וחזרה לכיוון המלון.",
     rating:4.5, lat:39.6240971, lng:19.9192482,
     gmap:"https://www.google.com/maps/search/?api=1&query=39.6240971,19.9192482&query_place_id=ChIJv47fettdWxMRPywDP-L6brI",
     photo:null },
-  { d:2, time:"15:00", icon:"🏖️", name:"חוף דאסיה (Dassia)", leg:"🚗 ~25 דק׳ צפונה",
-    notes:"שחיית אחר הצהריים: מים רדודים ורגועים, צל עצים על החול — מושלם עם ילדים. חלופה מהרשימה: חוף גליפאדה המאורגן (30 דק׳ מערבה).",
+  { d:2, time:"15:00", icon:"🏖️", name:"חוף דאסיה (Dassia)", en:"Dassia Beach", hrs:"מיטות שיזוף בהשכרה על החוף · ים ~26°", leg:"🚗 ~25 דק׳ צפונה",
+    notes:"שחיית אחר הצהריים: מים רגועים וצל עצים על החול — עצירה נינוחה. רוצים אווירה במקום שקט? חוף גליפאדה המאורגן עם הביץ׳-ברים (30 דק׳ מערבה).",
     rating:4.0, lat:39.6815411, lng:19.8410933,
     gmap:"https://maps.google.com/?cid=13547594308667669765",
     photo:"https://lh3.googleusercontent.com/place-photos/AJRVUZP9wU-NWCjIFYkZQSq683i_rFtWPUK6XWX_rb65McreINofpIkexNIWy7GWJxnaVKZPeYHrs5n_WKpOiuFeaUy9qFPG5xApc8afShMbqn500SJWuLcWmjgXoqCl8U8E5eUjdB7aqJQe71hxmw=s4800-w800-h600" },
-  { d:2, time:"18:15", icon:"🛬", name:"תצפית קאנוני — מנזר ולכרנה", leg:"🚗 ~30 דק׳ חזרה דרומה",
+  { d:2, time:"18:15", icon:"🛬", name:"תצפית קאנוני — מנזר ולכרנה", en:"Vlacherna Monastery, Kanoni", hrs:"כל יום 8:00–23:00 · חינם", leg:"🚗 ~30 דק׳ חזרה דרומה",
     notes:"המטוסים נוחתים ממש מעל הראש, והמנזר הלבן על האי הקטן הוא הגלויה של קורפו. שווה לחכות לנחיתה אחת או שתיים. ערב חופשי, ולינה שנייה במלון — 3 דק׳ מכאן.",
     rating:4.7, lat:39.5899918, lng:19.9171444,
     gmap:"https://maps.google.com/?cid=1059384372771907436",
     photo:"https://lh3.googleusercontent.com/place-photos/AJRVUZM_jOpKq_zhTXCyrPMphBFSwROw8193nTH-IP5EeT6xjlFsk4S9rJMUzxfILKfGA0YHf2A_RRBW0-8fK_1sQideu0KPH0O3-ie6qkNwhfK22Fz1FtFE8xodCaTcio4XqRJcaO5CP-sbs7fs4MI=s4800-w800-h600" },
 
-  { d:3, time:"09:15", icon:"🛍️", name:"ג׳מבו (JUMBO)", leg:"🚗 10 דק׳ · אחרי צ׳ק-אאוט",
-    notes:"עצירה בדרך מערבה — פותחים ב-9:00. מתנפחים, שנורקלים, כובעים וצעצועים במחירי יוון, בדיוק לפני יום הסירה.",
+  { d:3, time:"09:15", icon:"🛍️", name:"ג׳מבו (JUMBO)", en:"Jumbo Corfu", tel:"+30 2661 026696", hrs:"שני–שבת 9:00–21:00 · ראשון 11:00–20:00", leg:"🚗 10 דק׳ · אחרי צ׳ק-אאוט",
+    notes:"עצירה בדרך מערבה — פותחים ב-9:00. מתנפחים, שנורקלים, כובעים וציוד ים במחירי יוון, בדיוק לפני יום הסירה.",
     rating:4.3, lat:39.6059915, lng:19.8934095,
     gmap:"https://maps.google.com/?cid=15521966440271000148",
     photo:"https://lh3.googleusercontent.com/place-photos/AG9NLjD3Ttb0Ing7kMKZbicZPfwESGzcrVWZLUbGFkew-U3Q98iVEfQ1dfoBF_DGCWo15XPXXeElMPxiyXz8s0uGQpudg8l2_bBk_kuFHy0UHASusJkfHuXzVDkzDXWUdEInDpmyBeKnCcPXmDPMNu4=s4800-w800-h600" },
-  { d:3, time:"10:30", icon:"⛵", name:"חוף אליפה — השייט הפרטי", leg:"🚗 ~35 דק׳ מערבה",
-    notes:"השכרת סירה ללא רישיון (עד 30 כ״ס): Corfu Rent a Boat‏ 4.8★ או Alipa Boats by Yiannis‏ 4.5★. לפי ביקורות ~120–170€ ל-4–6 שעות + דלק 12–20€. מסלול השייט: דרומה למערת העין הכחולה (שנורקל!) ו-Stelari, ואז צפונה — העצירות מסומנות במפה.",
+  { d:3, time:"10:30", icon:"⛵", name:"חוף אליפה — השייט הפרטי", en:"Alipa Beach, Paleokastritsa", tel:"+30 697 040 7810", hrs:"השכרות 9:00–18:00 · להזמין סירה מראש! חלופה: Yiannis ‎+30 697 322 4916", leg:"🚗 ~35 דק׳ מערבה",
+    notes:"השכרת סירה ללא רישיון (עד 30 כ״ס): Corfu Rent a Boat‏ 4.8★ או Alipa Boats by Yiannis‏ 4.5★. לפי ביקורות ~120–170€ ל-4–6 שעות + דלק 12–20€. מסלול השייט: דרומה למערת העין הכחולה (שנורקל!) ו-Stelari, ואז צפונה — העצירות מסומנות במפה. צידנית עם קרח כלולה ברוב הסירות.",
     rating:4.4, lat:39.6727976, lng:19.7069395,
     gmap:"https://maps.google.com/?cid=10347399387626858346",
     photo:"https://lh3.googleusercontent.com/place-photos/AJRVUZPXynpWmWVMEkbJy1SaawR_ta8A3RratiFW7mnrcbSdkebUYovkoRYBQj7vTEjfC6XkpDzEawBIqLf6wSBs9h4M2vzfbiT0jGSxis94hVJCe8syEBrImbB7oKLjKBzXpsCtP24stLuzdOQD6mA=s4800-w800-h600" },
-  { d:3, time:"11:45", icon:"🏝️", name:"חוף חומי (Paradise) — עצירת סירה", leg:"⛵ שייט דרומה, בדרך העין הכחולה ו-Stelari", boat:true,
+  { d:3, time:"11:45", icon:"🏝️", name:"חוף חומי (Paradise) — עצירת סירה", en:"Chomi (Paradise) Beach — boat only", leg:"⛵ שייט דרומה, בדרך העין הכחולה ו-Stelari", boat:true,
     notes:"׳תאילנד של קורפו׳ מהפוסט ששלחתם: צוקים לבנים ומי טורקיז — נגיש רק מהים. עוגנים לשחייה ושנורקל.",
     rating:4.8, lat:39.6528, lng:19.7185,
     gmap:"https://www.google.com/maps/search/?api=1&query=39.6528,19.7185",
     photo:null },
-  { d:3, time:"12:45", icon:"🐚", name:"חוף רוביניה — עצירת סירה", leg:"⛵ חוזרים צפונה", boat:true,
+  { d:3, time:"12:45", icon:"🐚", name:"חוף רוביניה — עצירת סירה", en:"Rovinia Beach, Liapades", leg:"⛵ חוזרים צפונה", boat:true,
     notes:"חוף פראי עם חלוקי נחל לבנים ומים צלולים (והכי קרירים באי — מעיינות). 4.6★ מ-2,965 ביקורות. אפשר גם ביבשה: חניה בליאפאדס והליכה 10–15 דק׳ בשביל מוצל.",
     rating:4.6, lat:39.6705355, lng:19.7278009,
     gmap:"https://www.google.com/maps/search/?api=1&query=39.6705355,19.7278009&query_place_id=ChIJs9hNwulQWxMRLhcKd9NPvtg",
     photo:null },
-  { d:3, time:"13:30", icon:"🤿", name:"חוף Limni Glyko — עוגנים לשחייה", leg:"⛵ מגיעים בסירה מאליפה", boat:true,
-    notes:"ה-Limni מהרשימה שלכם: מים בצבע טורקיז בין שני סלעים, צד רדוד שמתאים לילדים, ומדי פעם עוברת סירת קיוסק עם שתייה קרה.",
+  { d:3, time:"13:30", icon:"🤿", name:"חוף Limni Glyko — עוגנים לשחייה", en:"Limni Beach Glyko, Liapades", leg:"⛵ מגיעים בסירה מאליפה", boat:true,
+    notes:"ה-Limni מהרשימה שלכם: מים בצבע טורקיז בין שני סלעים, ומדי פעם עוברת סירת קיוסק עם שתייה קרה.",
     rating:4.6, lat:39.6655277, lng:19.7238775,
     gmap:"https://maps.google.com/?cid=5569407729180384201",
     photo:"https://lh3.googleusercontent.com/place-photos/AJRVUZMrAw--N2OrGqWSTv5ylqV6k4igxt5iydUsTcsWETAjJdD4H34OpbsE9mFouXramjBS5IOO3xcdg6LOtN55dnrBu2J_OUFPJmHDTH2M07chI-387Da6O7nZ4FJY9uf4bXlh_Ilh_PqPMOGCOQ=s4800-w800-h600" },
-  { d:3, time:"15:45", icon:"🪨", name:"מפרץ לה גרוטה — קפיצות למים", leg:"🚗 3 דק׳ · ירידה בגרם מדרגות ארוך",
+  { d:3, time:"15:45", icon:"🪨", name:"מפרץ לה גרוטה — קפיצות למים", en:"La Grotta Beach Bar, Paleokastritsa", tel:"+30 2663 041006", hrs:"כל יום 10:00–01:00 · מיטה ~20€ או חינם על הסלעים", leg:"🚗 3 דק׳ · ירידה בגרם מדרגות ארוך",
     notes:"מפרץ סלעי עם מים עמוקים וצלולים וסלעי קפיצה — 4.5★ מ-5,637 ביקורות. זה בר (מיטת שיזוף ~20€) אבל אפשר לשבת חינם על הסלעים — אנחנו בשביל הקפיצות והשנורקל. עייפים מהשייט? מדלגים ונחים בבריכת המלון.",
     rating:4.5, lat:39.673799, lng:19.7186049,
     gmap:"https://www.google.com/maps/search/?api=1&query=39.673799,19.7186049&query_place_id=ChIJH49P3-ZQWxMRIEr1axRHrQU",
     photo:null },
-  { d:3, time:"17:00", icon:"⛪", name:"מנזר פלאוקסטריצה", leg:"🚗 5 דק׳ מאליפה (אחרי החזרת הסירה וצהריים)",
+  { d:3, time:"17:00", icon:"⛪", name:"מנזר פלאוקסטריצה", en:"Monastery of Paleokastritsa (Theotokos)", tel:"+30 2662 041210", hrs:"כל יום 6:30–13:00 ו-15:00–19:00 — אתם מגיעים 17:00 ✓", leg:"🚗 5 דק׳ מאליפה (אחרי החזרת הסירה וצהריים)",
     notes:"נפתח שוב ב-15:00 (עד 19:00). כניסה חינם, לבוש צנוע, גינות מטופחות ונוף מהצוק על המפרצים.",
     rating:4.7, lat:39.6695032, lng:19.7015685,
     gmap:"https://maps.google.com/?cid=1155369314823905337",
     photo:"https://lh3.googleusercontent.com/place-photos/AJRVUZP60yuNrdx58m0IoIhiWoYz-EzRAeIEgl108riGBeBd06o-YFnopi7jRVtvVSXQ6ZqnZVk72gU8dnsmUCUPtkUj-22A0gxbLOS3vL3LTo78zWp3klQbpbx_MTksHE0tr04ZKBn37Z_0cUApaw=s4800-w800-h600" },
-  { d:3, time:"18:00", icon:"🏠", hotelArea:2, air:true, name:"צ׳ק-אין: 04 Sea View Apartment (Airbnb) — פלאוקסטריצה", leg:"🚗 5 דק׳",
+  { d:3, time:"18:00", icon:"🏠", hotelArea:2, air:true, name:"צ׳ק-אין: 04 Sea View Apartment (Airbnb) — פלאוקסטריצה", en:"04 Sea View Apartment, Palaiokastritsa", hrs:"תיאום צ׳ק-אין בצ׳אט של Airbnb (אין טלפון ציבורי)", leg:"🚗 5 דק׳",
     notes:"ברירת המחדל ללילות רביעי–חמישי (★5.0 Guest Favorite, ~€100–140): מרפסת מול הים, חניה חינם, עד 6 אורחים ומטבח. החלפה בלחיצה על כל סמן ורוד.",
     rating:5.0, lat:39.6748, lng:19.7092,
     gmap:"https://www.airbnb.com/rooms/22569298?check_in=2026-07-29&check_out=2026-07-31",
     photo:null },
-  { d:3, time:"19:45", icon:"🌅", name:"תצפית Bella Vista — לאקונס", leg:"🚗 10 דק׳ במעלה ההר — כביש צר, לנסוע לאט",
-    notes:"התצפית המפורסמת של האי: כל מפרצי פלאוקסטריצה מתחתיכם. להביא ארוחת ערב קלה מהצידנית ולתפוס מקום טוב לשקיעה (~20:45). בסיום — חזרה לדירה, 10 דק׳ במורד.",
+  { d:3, time:"19:45", icon:"🌅", name:"תצפית Bella Vista — לאקונס", en:"Bella Vista Viewpoint, Lakones", hrs:"תצפית פתוחה · שקיעה 29.7: 20:55", leg:"🚗 10 דק׳ במעלה ההר — כביש צר, לנסוע לאט",
+    notes:"התצפית המפורסמת של האי: כל מפרצי פלאוקסטריצה מתחתיכם. להביא ארוחת ערב קלה מהצידנית ולתפוס מקום טוב לשקיעה — ביום רביעי 29.7 היא ב-20:55. בסיום — חזרה לדירה, 10 דק׳ במורד.",
     rating:4.8, lat:39.6791634, lng:19.6992563,
     gmap:"https://maps.google.com/?cid=7079916835954259621",
     photo:"https://lh3.googleusercontent.com/place-photos/AJRVUZOzvAerNjcpcrEZohsjZd-FIrH6F8lWYBSADMoUGxkCNE7S5MvbMW_-zAOdbf3rscyvfy_OQbEy66mvV72_RuP9CV1PVIo_DXUw-NdyCK6HQtawRA4fLXluWsUTn902cATgQiViOhxjz5Wf=s4800-w800-h600" },
 
 
-  { d:4, time:"09:00", icon:"🥾", name:"פורטו טימוני (Porto Timoni)", leg:"🚗 30 דק׳ לאפיונאס + 🥾 ירידה 25–30 דק׳",
-    notes:"שני המפרצים התאומים — לצאת מוקדם לפני החום. חונים בכפר אפיונאס ויורדים בשביל (נעליים סגורות + מים!), או פשוט מונית-ים מחוף אגיוס גאורגיוס — ההמלצה עם ילדים.",
+  { d:4, time:"09:00", icon:"🥾", name:"פורטו טימוני (Porto Timoni)", en:"Afionas Village (Porto Timoni trailhead)", hrs:"מוניות-הים פועלות ~10:00–18:00 · לרדת לפני 9:30, אחר כך חם", leg:"🚗 30 דק׳ לאפיונאס + 🥾 ירידה 25–30 דק׳",
+    notes:"שני המפרצים התאומים — לצאת מוקדם לפני החום. חונים בכפר אפיונאס ויורדים בשביל (נעליים סגורות + מים!), או מונית-ים מחוף אגיוס גאורגיוס. הקומבו המנצח: ירידה ברגל, חזרה בסירה.",
     rating:4.5, lat:39.7152492, lng:19.6580634,
     gmap:"https://maps.google.com/?cid=11855933772415448033",
     photo:"https://lh3.googleusercontent.com/place-photos/AG9NLjDr9OMeXdBIsJFmI9wkl_U0Um_YmjTtlnLfLPVsozZiJbnCRgu-A5avPi0TYcQU1cR2wXTLegjdRz-jti5iTs2N-zZ1VOSjjcQWaSBbCWWcm7zHvhNTrtedS6j6JDeOJ_TN3IjEqfSSKVGfaQ=s4800-w800-h600" },
-  { d:4, time:"13:00", icon:"🏖️", name:"חוף אגיוס גאורגיוס פאגון", leg:"🚗 10 דק׳ (או חזרה במונית-הים)",
+  { d:4, time:"13:00", icon:"🏖️", name:"חוף אגיוס גאורגיוס פאגון", en:"Agios Georgios Pagon Beach", hrs:"מיטות בהשכרה · מוניות-ים לפורטו טימוני יוצאות מהחוף", leg:"🚗 10 דק׳ (או חזרה במונית-הים)",
     notes:"צהריים מהצידנית ומנוחה על חוף רחב ורגוע. מכאן יוצאות סירות הטקסי לפורטו טימוני אם ויתרתם על הירידה ברגל.",
     rating:4.6, lat:39.7200594, lng:19.6748116,
     gmap:"https://maps.google.com/?cid=2021420506091572863",
     photo:"https://lh3.googleusercontent.com/place-photos/AG9NLjCVy7vQN3Lr7Oalfd7QmOJYkNpxU3_1E6p7ARjFTs-qxNoarY_YQQ7gxbc6Jql2_kZe84COaDBah2spW9LkDdvnou2yRljzCY45kL6fdzvoy2QWnMTVZlXLgyTbmKoltsxFQklyIHWxqnhrxA=s4800-w800-h600" },
-  { d:4, time:"17:00", icon:"📸", name:"תעלת האוהבים (Canal d’Amour) — סידארי", leg:"🚗 ~30 דק׳ צפונה",
+  { d:4, time:"17:00", icon:"📸", name:"תעלת האוהבים (Canal d’Amour) — סידארי", en:"Canal d'Amour, Sidari", hrs:"פתוח תמיד · הכי עמוס 12:00–17:00", leg:"🚗 ~30 דק׳ צפונה",
     notes:"מפרצוני אבן החול המפורסמים של סידארי. לפי האגדה, זוג ששוחה יחד לאורך התעלה יישאר יחד לנצח 💙 עצירה לתמונות, קפיצות וטבילה.",
     rating:4.3, lat:39.7970523, lng:19.6980385,
     gmap:"https://maps.google.com/?cid=14445496272545371942",
     photo:"https://lh3.googleusercontent.com/place-photos/AJRVUZNmsOg-RbHsJ5Zg1n3y00oXiQ1ZYFpMDmGSxaKMJSD4EqVK_7lRXlxZv1UVaEAseC3JiVKw-a8YSJeGTcHjM8qVZR1mFbfVTuVBlksIM_SCwDuuTuXURF7wrtnpeP_sleZUuh6DISJ1plJlfg=s4800-w800-h600" },
-  { d:4, time:"18:30", icon:"🗿", name:"קייפ דרסטיס — הסלעים הלבנים", leg:"🚗 7 דק׳ + 🚶 10 דק׳ הליכה",
+  { d:4, time:"18:30", icon:"🗿", name:"קייפ דרסטיס — הסלעים הלבנים", en:"Cape Drastis, Peroulades", hrs:"תצפית פתוחה · האור הכי יפה אחרי 18:00", leg:"🚗 7 דק׳ + 🚶 10 דק׳ הליכה",
     notes:"תצורות הגיר הלבנות שנשפכות לים — נקודת הצילום של האי (4.7★, 3,341 ביקורות). חניה קטנה ושביל עם שיחים קוצניים — נעליים סגורות. הנוף מלמעלה הוא העיקר; צמוד ללוגאס.",
     rating:4.7, lat:39.7986294, lng:19.6738109,
     gmap:"https://www.google.com/maps/search/?api=1&query=39.7986294,19.6738109&query_place_id=ChIJ16bUkbVPWxMRqYxyX32_PzM",
     photo:null },
 
-  { d:4, time:"19:45", icon:"🌇", name:"חוף לוגאס — השקיעה", leg:"🚗 ~12 דק׳ מסידארי · חזרה לדירה ~45 דק׳",
-    notes:"השקיעה הכי מפורסמת באי, מראש מצוק לבן (~20:45). להגיע חצי שעה לפני לתפוס מקום; מרפסת התצפית עם רצפת הזכוכית (7th Heaven) צמודה.",
+  { d:4, time:"19:45", icon:"🌇", name:"חוף לוגאס — השקיעה", en:"Loggas Beach, Peroulades", tel:"+30 2663 095035", hrs:"שקיעה 30.7: 20:53 · 7th Heaven פתוח 11:00–24:00, כדאי להזמין מקום", leg:"🚗 ~12 דק׳ מסידארי · חזרה לדירה ~45 דק׳",
+    notes:"השקיעה הכי מפורסמת באי, מראש מצוק לבן — ביום חמישי 30.7 השקיעה ב-20:53. להגיע חצי שעה לפני לתפוס מקום; מרפסת התצפית עם רצפת הזכוכית (7th Heaven) צמודה.",
     rating:4.5, lat:39.7875346, lng:19.6664415,
     gmap:"https://maps.google.com/?cid=2906717984510712442",
     photo:"https://lh3.googleusercontent.com/place-photos/AJRVUZMo_hWN8moSLLbkSzQpxph7FpvTOJG2IQbdOmuE7ZpVpodWaOWwmqdt2JpaCa_jmgEGwG5tRR7_ujh16XBOeAfQZujQqAtUFnzP9BgyLVVPSbsrykXqvmbEdwUmeGHs1yqJPtNOi_PgxiUrdSU=s4800-w800-h600" },
 
-  { d:5, time:"08:30", icon:"🛫", name:"שדה התעופה — החזרת הרכב", leg:"🚗 ~40 דק׳ מפלאוקסטריצה · יציאה 07:30",
+  { d:5, time:"08:30", icon:"🛫", name:"שדה התעופה — החזרת הרכב", en:"Corfu Airport (CFU) — rental car return", hrs:"החזרת רכב עד 08:30 · הדלפקים פתוחים מוקדם", leg:"🚗 ~40 דק׳ מפלאוקסטריצה · יציאה 07:30",
     notes:"תדלוק בתחנה שבדרך, החזרת רכב עד 08:30, ובטרמינל 08:45 — בדיוק 3 שעות לפני טיסת 11:45. נסיעה טובה הביתה! ✈️",
     rating:null, lat:39.6071325, lng:19.9149916,
     gmap:"https://maps.google.com/?cid=3707393816662574799",
@@ -345,13 +352,14 @@ var TIPS = [
   "🕎 כשרות: אין מסעדות כשרות בקורפו, ולמיטב הבדיקה אין בית חב״ד קבוע באי — מתארגנים עצמאית. חב״ד אתונה מפעילים משלוחי אוכל כשר מוכן לאיי יוון (דרך chabad.gr) — להזמין כמה ימים מראש.",
   "🛒 קניות: סניף גדול של AB Vassilopoulos נמצא ממש בדרך לג׳מבו (שני–שבת 8:00–21:00, ראשון 11:00–18:00) — פירות, ירקות ומצרכים לצידנית. שווה להביא מהארץ מוצרים כשרים — ובדירות שנבחרו יש מטבח מלא.",
   "🕍 בית הכנסת וקהילת קורפו: טלפון המשרד +30-26610-47777 — אפשר לתאם ביקור מראש; בקיץ יש לעיתים מניינים.",
-  "🌅 שקיעה בסוף יולי: בערך 20:45. לנקודות שקיעה (Bella Vista, לוגאס) כדאי להגיע חצי שעה לפני.",
+  "🌅 שקיעות מדויקות בתאריכים שלכם: רביעי 29.7 — 20:55 (Bella Vista), חמישי 30.7 — 20:53 (לוגאס). להגיע חצי שעה לפני לתפוס מקום.",
   "⛵ סירה: השכרה ללא רישיון עד 30 כ״ס. לקחת כובעים, מים והרבה קרם הגנה — אין צל בסירה. את הציוד קונים בג׳מבו באותו בוקר.",
-  "🥾 פורטו טימוני: נעליים סגורות חובה. עם ילדים — מונית־ים מאגיוס גאורגיוס (בסביבות 10€ לאדם הלוך־חזור) חוסכת את הירידה.",
+  "🥾 פורטו טימוני: נעליים סגורות חובה. הירידה ברגל שווה כל צעד (25–30 דק׳), ומונית־ים מאגיוס גאורגיוס (~10€ לאדם) חוסכת את הטיפוס בחזרה.",
   "🛍️ ג׳מבו: פתוח שני–שבת 9:00–21:00, ראשון 11:00–20:00.",
   "✈️ יום שישי: יציאה 07:30 מהדירה, תדלוק בדרך, החזרת רכב עד 08:30, בטרמינל 08:45 לטיסת 11:45.",
   "🏨 חלופה ללילה האחרון: Sidari Beach Hotel‏ (4.7★) אם מעדיפים לישון בצפון בחמישי — ואז ביום שישי יוצאים כבר ב־06:45 (שעה ורבע נסיעה) — פחות מומלץ עם הטיסה המוקדמת.",
-  "🛏️ 31 חלופות לינה מסומנות במפה בסמן ורוד — בכל כרטיס יש כפתור 🗓️ שפותח את הזמינות והמחיר המדויקים לתאריכים שלכם (27–29.7 לבסיס העיר, 29–31.7 לפלאוקסטריצה) בלחיצה אחת. המחירים בכרטיס הם הערכות בלבד."
+  "🛏️ 31 חלופות לינה מסומנות במפה בסמן ורוד — בכל כרטיס יש כפתור 🗓️ שפותח את הזמינות והמחיר המדויקים לתאריכים שלכם (27–29.7 לבסיס העיר, 29–31.7 לפלאוקסטריצה) בלחיצה אחת. המחירים בכרטיס הם הערכות בלבד.",
+  "🌤️ מזג אוויר (ממוצעי סוף יולי — תחזית אמיתית נפתחת רק ~שבוע לפני): 22–32°, ים ~26°, גשם כמעט אפסי. לפני יום השייט בדקו רוח ב-windy.com."
 ];
 
 /* ===== חלופות לינה (לבחירה) ===== */
@@ -424,7 +432,7 @@ var LODGING = [
   { area:2, score:9, src:"airbnb", rate:4.85, cnt:132, name:"Studio #1 — 3 מ׳ מהחוף, פלאוקסטריצה (Airbnb)",
     price:"מחיר בקישור · הערכה €90–130 ללילה",
     notes:"סטודיו עם מטבחון, בריכה וחניה — גישה ישירה לחוף בלב פלאוקסטריצה, 5 דק׳ מסופר וממסעדות. חפשו את השם בקישור החיפוש.",
-    lat:39.6722, lng:19.7052, link:"https://www.airbnb.com/s/Palaiokastritsa--Greece/homes?checkin=2026-07-29&checkout=2026-07-31&adults=2&children=2" },
+    lat:39.6722, lng:19.7052, link:"https://www.airbnb.com/s/Palaiokastritsa--Greece/homes?checkin=2026-07-29&checkout=2026-07-31&adults=2" },
   { area:2, score:8, src:"airbnb", rate:0, cnt:0, name:"Aliki Apartment 1 — מרכז פלאוקסטריצה (Airbnb)",
     price:"מחיר בקישור · הערכה €80–120 ללילה",
     notes:"דירה 50 מ׳ מהחוף: חדר שינה + סלון עם 2 מיטות וספה, מטבח מאובזר מלא ומרפסת נוף גדולה לים.",
@@ -432,7 +440,7 @@ var LODGING = [
   { area:2, score:8, src:"airbnb", rate:4.81, cnt:89, name:"Stamatela Studios 9 — פלאוקסטריצה (Airbnb)",
     price:"מחיר בקישור · הערכה €60–90 ללילה",
     notes:"סטודיו פשוט וזול במעלה הכפר עם 89 ביקורות — למי שרוצה לחסוך ולהשאיר תקציב לשייט. חפשו את השם בקישור.",
-    lat:39.6745, lng:19.7105, link:"https://www.airbnb.com/s/Palaiokastritsa--Greece/homes?checkin=2026-07-29&checkout=2026-07-31&adults=2&children=2" },
+    lat:39.6745, lng:19.7105, link:"https://www.airbnb.com/s/Palaiokastritsa--Greece/homes?checkin=2026-07-29&checkout=2026-07-31&adults=2" },
   { area:2, score:9, src:"google", rate:4.6, cnt:444, name:"Odysseus Hotel — פלאוקסטריצה",
     price:"~€120–150 (≈470–580 ₪)",
     notes:"אותו דירוג כמו Akrotiri בהרבה פחות: בריכה גדולה, מרפסות נוף ו׳מחירים נוחים׳ לפי הביקורות.",
@@ -447,7 +455,7 @@ var LODGING = [
     lat:39.676344, lng:19.7246119, link:"https://www.google.com/maps/search/?api=1&query=39.676344,19.7246119&query_place_id=ChIJ-342R-9QWxMRKxGKdOCkM5w" },
   { area:2, score:8, src:"google", rate:4.7, cnt:216, name:"Avra Sunset Sea View — ליאפאדס",
     price:"~€90–120",
-    notes:"בריכה מדורגת שמתאימה לילדים ונוף שקיעה; כפר הליכתי עם שני חופים, 8 דק׳ נסיעה לאליפה.",
+    notes:"בריכה עם נוף שקיעה; כפר הליכתי עם שני חופים, 8 דק׳ נסיעה לאליפה.",
     lat:39.6726059, lng:19.7341402, link:"https://www.google.com/maps/search/?api=1&query=39.6726059,19.7341402&query_place_id=ChIJu1hJUyJRWxMRbU6ymiui8IQ" },
   { area:2, score:8, src:"airbnb", rate:4.87, cnt:68, name:"Nina Apartments n.5 — אגיוס גאורגיוס (Airbnb)",
     price:"מחיר בקישור · הערכה €80–110",
@@ -463,7 +471,7 @@ var LODGING = [
     lat:39.6730765, lng:19.7017935, link:"https://www.google.com/maps/search/?api=1&query=39.6730765,19.7017935&query_place_id=ChIJ7x66kiJRWxMRbVVxek3cXQ8" },
   { area:2, score:9.5, src:"google", rate:4.9, cnt:17, name:"Villa Grecia — ליאפאדס (בריכה פרטית)",
     price:"~€250–350 (960–1,350 ₪) ללילה",
-    notes:"וילה עם בריכה פרטית חדשה, מטבח מלא וגינת ירק של המשפחה המארחת (ביקורות מדברות על אירוח יוצא דופן). 2 דק׳ מהמאפייה, 15 דק׳ הליכה לרוביניה ולימני. הבחירה המשפחתית.",
+    notes:"וילה עם בריכה פרטית חדשה, מטבח מלא וגינת ירק של המשפחה המארחת (ביקורות מדברות על אירוח יוצא דופן). 2 דק׳ מהמאפייה, 15 דק׳ הליכה לרוביניה ולימני. הכי רומנטי-כפרי שיש באזור.",
     lat:39.671538, lng:19.737116, link:"https://www.google.com/maps/search/?api=1&query=39.671538,19.737116&query_place_id=ChIJH_fC65RQWxMRq7ap864LAvE" },
   { area:2, score:8.5, src:"google", rate:5.0, cnt:9, name:"Paleo Villas — מעל פלאוקסטריצה",
     price:"~€300–380 (1,150–1,470 ₪) ללילה",
@@ -634,7 +642,7 @@ function applyFilter() {
   if (currentDay === 0) {
     dt.innerHTML = 'כל המסלול · 24 עצירות · 4 לילות<span class="ph2">' + baseLabelAll() + '</span>';
   } else {
-    dt.innerHTML = "יום " + dayMeta(currentDay).chip + " · " + dayMeta(currentDay).title + '<span class="ph2">' + lodgingLabelFor(currentDay) + "</span>";
+    dt.innerHTML = "יום " + dayMeta(currentDay).chip + " · " + dayMeta(currentDay).title + '<span class="ph2">' + lodgingLabelFor(currentDay) + " · " + dayMeta(currentDay).wx + "</span>";
   }
 }
 
@@ -673,7 +681,7 @@ function renderList() {
   visibleStops().forEach(function (i) {
     var s = STOPS[i], dm = dayMeta(s.d);
     if (currentDay === 0 && s.d !== lastDay) {
-      html += '<div class="dayhead" style="--c:' + dm.color + '"><span>יום ' + dm.chip + "</span><em>" + dm.title + "</em><i>" + lodgingLabelFor(dm.d) + "</i></div>";
+      html += '<div class="dayhead" style="--c:' + dm.color + '"><span>יום ' + dm.chip + "</span><em>" + dm.title + "</em><i>" + lodgingLabelFor(dm.d) + "</i><u>" + dm.wx + "</u></div>";
       lastDay = s.d;
     }
     if (s.leg) html += '<div class="leg">' + s.leg + "</div>";
@@ -712,6 +720,13 @@ function openDetail(s) {
   h += '<div class="dbody">' +
     '<div class="deyebrow"><span class="dot" style="background:' + dm.color + '"></span>יום ' + dm.chip + " · עצירה " + s.numInDay + " · " + s.time + "</div>" +
     '<h3 class="dname">' + s.icon + " " + dispName(s) + "</h3>";
+  if (s.en) h += '<div class="den" onclick="copyEn(this)" title="לחצו להעתקה">🧭 לניווט: <b>' + s.en + "</b></div>";
+  if (s.tel || s.hrs) {
+    var mm = [];
+    if (s.tel) mm.push('📞 <a href="tel:' + s.tel.replace(/[^+\d]/g, "") + '">' + s.tel + "</a>");
+    if (s.hrs) mm.push("🕐 " + s.hrs);
+    h += '<div class="dmeta">' + mm.join("<br>") + "</div>";
+  }
   if (s.rating) h += '<div class="drating">★ ' + s.rating.toFixed(1) + ' <span>בגוגל</span></div>';
   if (s.leg) h += '<div class="dleg">' + s.leg + "</div>";
   h += '<p class="dnotes">' + s.notes + "</p>" +
@@ -851,7 +866,7 @@ function availUrl(l) {
   var ci = l.area === 1 ? "2026-07-27" : (l.area === 3 ? "2026-07-30" : "2026-07-29");
   var co = l.area === 1 ? "2026-07-29" : "2026-07-31";
   var q = encodeURIComponent(l.name.split(" — ")[0] + " Corfu");
-  return "https://www.booking.com/searchresults.html?ss=" + q + "&checkin=" + ci + "&checkout=" + co + "&group_adults=2&group_children=2&no_rooms=1";
+  return "https://www.booking.com/searchresults.html?ss=" + q + "&checkin=" + ci + "&checkout=" + co + "&group_adults=2&no_rooms=1";
 }
 function openLodging(l) {
   var areaTxt = l.area === 1 ? "בסיס קאנוני/העיר · לילות שני–שלישי" : l.area === 2 ? "בסיס פלאוקסטריצה · לילות רביעי–חמישי" : "חלופה ללילה האחרון בצפון";
@@ -872,6 +887,17 @@ function openLodging(l) {
     '<a class="btn btn-b" href="' + b2href + '" target="_blank" rel="noopener">' + b2txt + '</a></div><button class="btn btn-c" onclick="pickBed(' + LODGING.indexOf(l) + ')">' + pickTxt + '</button></div>';
   document.getElementById("dContent").innerHTML = h;
   document.getElementById("detail").classList.add("open");
+}
+
+function copyEn(el) {
+  var t = el.textContent.replace("🧭 לניווט: ", "").trim();
+  try {
+    navigator.clipboard.writeText(t).then(function () { flashCopied(el); }, function () {});
+  } catch (e) {}
+}
+function flashCopied(el) {
+  el.classList.add("copied");
+  setTimeout(function () { el.classList.remove("copied"); }, 1400);
 }
 
 document.addEventListener("DOMContentLoaded", boot);
